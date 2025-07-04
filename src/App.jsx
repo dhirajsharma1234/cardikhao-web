@@ -3,7 +3,7 @@
 // src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import "../public/app/css/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
