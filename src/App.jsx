@@ -11,6 +11,7 @@ import About from "./pages/About";
 import CarListing from "./pages/CarListing";
 import Cardetails from "./pages/Cardetails";
 import { Toaster } from "react-hot-toast";
+import SellCar from "./components/SellCar";
 
 const queryClient = new QueryClient();
 
@@ -29,8 +30,8 @@ function App() {
                             path="/brand/:brandId"
                             element={<CarListing />}
                         /> */}
-                        {/* <Route path="/cardetails" element={<Cardetails />} /> */}
                         <Route path="/car/:carId" element={<Cardetails />} />
+                        <Route path="/sell-car" element={<SellCar />} />
                     </Routes>
                 </main>
                 <Footer />

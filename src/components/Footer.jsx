@@ -221,7 +221,7 @@ function Footer() {
                                 </h4>
                                 <ul className="footer-links-list">
                                     <li>
-                                        <a href="javascript:void(0);">FAQs</a>
+                                        <Link to="/sell-car#faq">FAQs</Link>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);">
