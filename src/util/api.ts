@@ -23,18 +23,20 @@ export const fetchAllCars = async ({
     condition,
     city,
     search,
+    maxPrice,
 }) => {
     const params = {
         page,
         limit,
         ...(brand && { brand }),
-        ...(modelName && { "modelName._id": modelName }),
+        ...(modelName && { modelName: modelName }),
         ...(bodyType && { bodyType }),
         ...(fuelType && { fuelType }),
         ...(transmission && { transmission }),
         ...(condition && { condition }),
         ...(city && { city }),
         ...(search && { "modelName.name": search }),
+        ...(maxPrice && { maxPrice }),
     };
 
     const res = await axios.get(

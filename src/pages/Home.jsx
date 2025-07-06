@@ -56,15 +56,38 @@ const SERVICE_ITEMS = [
     { title: "Car finance", to: "/car-loan" },
     { title: "New cars", to: "/new-cars" },
     { title: "Car services", to: "/car-services" },
-    { title: "Car insurance", to: "/car-insurance" },
-    { title: "Car valuation", to: "/used-car-valuation" },
-    { title: "EMI calculator", to: "/emi-calculator" },
+    // { title: "Car insurance", to: "/car-insurance" },
+    // { title: "Car valuation", to: "/used-car-valuation" },
+    // { title: "EMI calculator", to: "/emi-calculator" },
 ];
 
 const CAR_CATEGORIES = [
     { name: "SUV", to: "/carlisting", filter: "bodyType=SUV" },
     { name: "Hatchback", to: "/carlisting", filter: "bodyType=HATCHBACK" },
     { name: "Sedan", to: "/carlisting", filter: "bodyType=SEDAN" },
+];
+
+const CAR_BUDGET = [
+    {
+        name: "2 Lakh",
+        to: "/carlisting",
+        filter: "maxPrice=2",
+    },
+    {
+        name: "3 Lakh",
+        to: "/carlisting",
+        filter: "maxPrice=3",
+    },
+    {
+        name: "4 Lakh",
+        to: "/carlisting",
+        filter: "maxPrice=4",
+    },
+    {
+        name: "5 Lakh",
+        to: "/carlisting",
+        filter: "maxPrice=5",
+    },
 ];
 
 const FUEL_TYPES = [
@@ -447,8 +470,8 @@ function Home() {
                                     {brands?.map((brand) => (
                                         <Link
                                             key={brand._id}
-                                            to={`/brand/${
-                                                brand._id ||
+                                            to={`/carlisting?brand=${
+                                                brand.name ||
                                                 brand.name.toLowerCase()
                                             }`}
                                             className="text-center brand-card"
@@ -558,7 +581,6 @@ function Home() {
                                                                 <img
                                                                     alt={`${car.brand.name} ${car.modelName.name}`}
                                                                     loading="lazy"
-                                                                    width={220}
                                                                     height={120}
                                                                     src={
                                                                         car
@@ -782,8 +804,7 @@ function Home() {
                                 {[
                                     {
                                         title: "BUY",
-                                        description:
-                                            "Drive home your dream car",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-1.webp",
                                         features: [
                                             {
@@ -805,8 +826,7 @@ function Home() {
                                     },
                                     {
                                         title: "LOANS24",
-                                        description:
-                                            "Make your dreams real with a personal loan",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-2.png",
                                         features: [
                                             {
@@ -828,8 +848,7 @@ function Home() {
                                     },
                                     {
                                         title: "CREDIT CARDS",
-                                        description:
-                                            "All your credit card options in one place",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-3.webp",
                                         features: [
                                             {
@@ -847,12 +866,11 @@ function Home() {
                                         ],
                                         cta: "Apply now",
                                         className: "credit-card",
-                                        to: "/credit-cards",
+                                        to: "#",
                                     },
                                     {
                                         title: "SELL",
-                                        description:
-                                            "Trust us to sell your car",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-4.webp",
                                         features: [
                                             {
@@ -874,8 +892,7 @@ function Home() {
                                     },
                                     {
                                         title: "FINANCE",
-                                        description:
-                                            "Make your dream car a reality",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-5.webp",
                                         features: [
                                             {
@@ -897,8 +914,7 @@ function Home() {
                                     },
                                     {
                                         title: "SCRAP CAR",
-                                        description:
-                                            "Your scrap car is worth more than you think",
+                                        description: "Coming soon...",
                                         image: "assets/images/services/2/service-6.webp",
                                         features: [
                                             {
@@ -1134,41 +1150,28 @@ function Home() {
                                     <div>
                                         <div className="used-cars-tabs budget-filter">
                                             <ul className="tabs-list">
-                                                {[
-                                                    {
-                                                        budget: "2 Lakh",
-                                                        to: "/used-cars-under-2-lakhs-bangalore",
-                                                    },
-                                                    {
-                                                        budget: "3 Lakh",
-                                                        to: "/used-cars-under-3-lakhs-bangalore",
-                                                    },
-                                                    {
-                                                        budget: "4 Lakh",
-                                                        to: "/used-cars-under-4-lakhs-bangalore",
-                                                    },
-                                                    {
-                                                        budget: "5 Lakh",
-                                                        to: "/used-cars-under-5-lakhs-bangalore",
-                                                    },
-                                                ].map((budget, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="tab-item"
-                                                    >
-                                                        <Link
-                                                            to={budget.to}
-                                                            className="tab-link"
+                                                {CAR_BUDGET.map(
+                                                    (budget, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className="tab-item"
                                                         >
-                                                            <span className="tab-prefix">
-                                                                Cars under{" "}
-                                                            </span>
-                                                            <strong className="tab-value">
-                                                                {budget.budget}
-                                                            </strong>
-                                                        </Link>
-                                                    </li>
-                                                ))}
+                                                            <Link
+                                                                to={`${budget.to}?${budget.filter}`}
+                                                                className="tab-link"
+                                                            >
+                                                                <span className="tab-prefix">
+                                                                    Cars under{" "}
+                                                                </span>
+                                                                <strong className="tab-value">
+                                                                    {
+                                                                        budget.name
+                                                                    }
+                                                                </strong>
+                                                            </Link>
+                                                        </li>
+                                                    )
+                                                )}
                                             </ul>
                                         </div>
                                     </div>

@@ -2941,6 +2941,7 @@ body{
 }
 .wrap-map2 .content-left .themesflat-pagination {
   margin-top: 30px;
+
 }
 
 .wrap-map3 {
@@ -7973,6 +7974,12 @@ body{
 }
 .sidebar-right-listing .sidebar-title {
   margin-bottom: 40px;
+  display: flex;
+    justify-content: space-between;
+}
+.sidebar-right-listing .sidebar-title button{
+  background: transparent;
+  border: none;
 }
 .sidebar-right-listing .claer i {
   rotate: 45deg;
@@ -13717,6 +13724,8 @@ path {
 -------------------------------------------------------------- */
 .themesflat-pagination {
   margin-top: 30px;
+  display: flex;
+    justify-content: center;
 }
 .themesflat-pagination.style {
   margin-top: 19px;
@@ -17820,7 +17829,7 @@ p.active::after{
 
     .cars-image-wrapper {
       background: linear-gradient(182deg, rgba(169, 185, 194, 0.5) 1.38%, rgba(255, 255, 255, 0.5) 91.7%);
-      padding: 8px 8px 0;
+      /* padding: 8px 8px 0; */
       position: relative;
       overflow: hidden;
       display: flex;
@@ -17842,19 +17851,20 @@ p.active::after{
     }
 
     .cars-image {
-      width: 220px;
-      height: 120px;
+      width: 100%;
+      /* height: 120px; */
       display: flex;
-      justify-content: center;
+      /* justify-content: center; */
       position: relative;
       z-index: 9;
-      margin-top: -10px;
-      transform: translateX(-12px);
+      /* margin-top: -10px; */
+      /* transform: translateX(-12px); */
     }
 
     .cars-image img {
       object-fit: contain;
       transition: transform 0.2s, filter 0.3s;
+      object-fit: cover;
     }
 
     .cars-wishlist-button {
@@ -17897,7 +17907,7 @@ p.active::after{
     }
 
     .cars-main-details {
-      padding: 0 12px;
+      padding: 10px 12px;
     }
 
     .cars-info {

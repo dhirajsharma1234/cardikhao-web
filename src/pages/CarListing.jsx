@@ -11,7 +11,9 @@ import "swiper/css/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllCars, fetchCarsByBrand } from "../util/api";
 import { useDebounce } from "use-debounce";
+import ListingFilter from "../components/ListingFilter";
 import Loader from "../components/Loader";
+import { formatPriceINR } from "../util/priceConversion";
 
 function CarListing() {
     const { brandId } = useParams();
@@ -24,17 +26,20 @@ function CarListing() {
     const searchParams = new URLSearchParams(location.search);
     const initialBodyType = searchParams.get("bodyType");
     const initialFuelType = searchParams.get("fuelType");
+    const priceType = searchParams.get("maxPrice");
+    const brandType = searchParams.get("brand");
 
     // State for filters
     const [filters, setFilters] = useState({
         search: "",
-        brand: brandId || "",
+        brand: brandType || brandId || "",
         modelName: "",
         bodyType: initialBodyType || "",
         fuelType: initialFuelType || "",
         transmission: "",
         condition: "",
         city: "",
+        maxPrice: priceType || "",
     });
 
     // Debounced filters (500ms delay)
@@ -81,10 +86,15 @@ function CarListing() {
         const fetchModels = async () => {
             if (debouncedFilters.brand) {
                 try {
-                    const response = await axios.get(
-                        `https://cardikhao-production.up.railway.app/api/brand/model/${debouncedFilters.brand}`
+                    const selectedBrand = brands.find(
+                        (brand) => brand.name === debouncedFilters.brand
                     );
-                    setModels(response.data.models || []);
+                    if (selectedBrand) {
+                        const response = await axios.get(
+                            `https://cardikhao-production.up.railway.app/api/brand/model/${selectedBrand._id}`
+                        );
+                        setModels(response.data.data || []);
+                    }
                 } catch (error) {
                     console.error("Failed to fetch models:", error);
                     setModels([]);
@@ -94,7 +104,7 @@ function CarListing() {
             }
         };
         fetchModels();
-    }, [debouncedFilters.brand]);
+    }, [debouncedFilters.brand, brands]);
 
     // Update query based on debounced filters
     const {
@@ -102,9 +112,7 @@ function CarListing() {
         isLoading,
         error,
     } = useQuery({
-        queryKey: brandId
-            ? ["cars", brandId, page, debouncedFilters]
-            : ["cars", page, debouncedFilters],
+        queryKey: ["cars", page, debouncedFilters],
         queryFn: async () => {
             setIsFilterLoading(true);
             try {
@@ -119,10 +127,12 @@ function CarListing() {
                     condition: debouncedFilters.condition,
                     city: debouncedFilters.city,
                     search: debouncedFilters.search,
+                    maxPrice: debouncedFilters.maxPrice
+                        ? debouncedFilters.maxPrice
+                        : "",
                 };
-                return brandId
-                    ? await fetchCarsByBrand({ brandId, ...params })
-                    : await fetchAllCars(params);
+
+                return await fetchAllCars(params);
             } finally {
                 setIsFilterLoading(false);
             }
@@ -134,9 +144,16 @@ function CarListing() {
     // Handle filter changes
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
+        // Special handling for maxPrice to ensure it's a valid number
+        let processedValue = value;
+        if (name === "maxPrice") {
+            processedValue =
+                value === "" ? "" : Math.max(0, parseFloat(value) || "");
+        }
+
         setFilters((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: processedValue,
             ...(name === "brand" && { modelName: "" }), // Reset model when brand changes
         }));
         setPage(1); // Reset to first page on filter change
@@ -153,6 +170,7 @@ function CarListing() {
             transmission: "",
             condition: "",
             city: "",
+            maxPrice: "",
         });
         setPage(1);
     };
@@ -194,15 +212,14 @@ function CarListing() {
                 <div className="cars-card">
                     <Link to={`/car/${car._id}`} className="cars-card-link">
                         <div className="cars-card-content">
-                            {/* Car Image */}
                             <div className="cars-image-container">
                                 <div className="cars-image-wrapper">
                                     <div className="cars-image">
                                         <img
                                             alt={`${car.brand?.name} ${car.modelName?.name}`}
                                             loading="lazy"
-                                            width={220}
-                                            height={120}
+                                            style={{ width: "100%" }}
+                                            height={180}
                                             src={
                                                 car.images?.[0]
                                                     ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
@@ -212,8 +229,6 @@ function CarListing() {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Car Details */}
                             <div className="cars-details-container">
                                 <div className="cars-main-details">
                                     <div className="cars-info">
@@ -226,14 +241,10 @@ function CarListing() {
                                                 {car.bodyType}
                                             </span>
                                         </div>
-
                                         <div className="cars-specs-list">
                                             <ul className="cars-specs">
                                                 <li className="cars-spec-item">
-                                                    {car.kmRun} km run
-                                                </li>
-                                                <li className="cars-spec-item">
-                                                    {car.mileage} mileage
+                                                    {car.kmRun} km
                                                 </li>
                                                 <li className="cars-spec-item">
                                                     {car.fuelType}
@@ -254,46 +265,57 @@ function CarListing() {
                                             </ul>
                                         </div>
                                     </div>
-
-                                    <div className="cars-price-section">
-                                        <div className="cars-price-details">
-                                            <div className="cars-price-right">
-                                                <div className="cars-price-amount">
-                                                    <p className="cars-price">
-                                                        ₹
-                                                        {(
-                                                            car.price / 100000
-                                                        ).toFixed(2)}{" "}
-                                                        lakh
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
-                                {/* Footer */}
                                 <div className="cars-footer-details">
                                     <div className="cars-divider" />
-
-                                    {car.isFeatured && (
-                                        <div className="cars-badge-container">
+                                    <div
+                                        className="cars-badge-container"
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: car.isFeatured
+                                                ? "space-between"
+                                                : "center",
+                                        }}
+                                    >
+                                        {car.isFeatured && (
                                             <div className="cars-assured-badge">
                                                 <img
-                                                    alt="Featured Car"
+                                                    alt="CARS24 Assured"
                                                     loading="lazy"
                                                     width={12}
                                                     height={12}
                                                     src="https://media.cars24.com/india/car-catalog/icons_13122024/cars24-assured.png"
                                                 />
-                                                <p>Featured Car</p>
+                                                <p>CARS24 Assured</p>
                                             </div>
+                                        )}
+                                        <div
+                                            className="cars-price-right"
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: car.isFeatured
+                                                    ? "flex-end"
+                                                    : "center",
+                                                justifyContent: car.isFeatured
+                                                    ? "flex-start"
+                                                    : "center",
+                                            }}
+                                        >
+                                            <div className="cars-price-amount">
+                                                <p className="cars-price">
+                                                    ₹{" "}
+                                                    {formatPriceINR(car.price)}
+                                                </p>
+                                            </div>
+                                            <span className="cars-other-charges">
+                                                <p>+ other charges</p>
+                                            </span>
                                         </div>
-                                    )}
-
+                                    </div>
                                     <div className="cars-location-info">
                                         <img
-                                            alt="Location"
+                                            alt="address-icon"
                                             loading="lazy"
                                             width={12}
                                             height={12}
@@ -335,223 +357,17 @@ function CarListing() {
                                         method="post"
                                         onSubmit={(e) => e.preventDefault()}
                                     >
-                                        <div className="wd-find-select">
-                                            {/* Search Input */}
-                                            <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    name="search"
-                                                    value={filters.search}
-                                                    onChange={
-                                                        handleFilterChange
-                                                    }
-                                                    className="form-control"
-                                                    placeholder="Search by model, fuel, color, etc."
-                                                />
-                                            </div>
-
-                                            {/* Brand Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="brand"
-                                                        value={filters.brand}
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                        disabled={!!brandId}
-                                                    >
-                                                        <option value="">
-                                                            Brand
-                                                        </option>
-                                                        {brands.map((brand) => (
-                                                            <option
-                                                                key={brand._id}
-                                                                value={
-                                                                    brand._id
-                                                                }
-                                                            >
-                                                                {brand.name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Model Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="modelName"
-                                                        value={
-                                                            filters.modelName
-                                                        }
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                        disabled={
-                                                            !filters.brand
-                                                        }
-                                                    >
-                                                        <option value="">
-                                                            Model
-                                                        </option>
-                                                        {models.map((model) => (
-                                                            <option
-                                                                key={model._id}
-                                                                value={
-                                                                    model._id
-                                                                }
-                                                            >
-                                                                {model.name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Body Type Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="bodyType"
-                                                        value={filters.bodyType}
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                    >
-                                                        <option value="">
-                                                            Body
-                                                        </option>
-                                                        {filterOptions.bodyType.map(
-                                                            (option) => (
-                                                                <option
-                                                                    key={option}
-                                                                    value={
-                                                                        option
-                                                                    }
-                                                                >
-                                                                    {option}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Fuel Type Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="fuelType"
-                                                        value={filters.fuelType}
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                    >
-                                                        <option value="">
-                                                            Fuel Type
-                                                        </option>
-                                                        {filterOptions.fuelType.map(
-                                                            (option) => (
-                                                                <option
-                                                                    key={option}
-                                                                    value={
-                                                                        option
-                                                                    }
-                                                                >
-                                                                    {option}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Transmission Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="transmission"
-                                                        value={
-                                                            filters.transmission
-                                                        }
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                    >
-                                                        <option value="">
-                                                            Transmission
-                                                        </option>
-                                                        {filterOptions.transmission.map(
-                                                            (option) => (
-                                                                <option
-                                                                    key={option}
-                                                                    value={
-                                                                        option
-                                                                    }
-                                                                >
-                                                                    {option}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* Condition Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <select
-                                                        name="condition"
-                                                        value={
-                                                            filters.condition
-                                                        }
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="nice-select form-control"
-                                                    >
-                                                        <option value="">
-                                                            Condition
-                                                        </option>
-                                                        {filterOptions.condition.map(
-                                                            (option) => (
-                                                                <option
-                                                                    key={option}
-                                                                    value={
-                                                                        option
-                                                                    }
-                                                                >
-                                                                    {option}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {/* City Filter */}
-                                            <div className="form-group">
-                                                <div className="group-select">
-                                                    <input
-                                                        type="text"
-                                                        name="city"
-                                                        value={filters.city}
-                                                        onChange={
-                                                            handleFilterChange
-                                                        }
-                                                        className="form-control"
-                                                        placeholder="City"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ListingFilter
+                                            filters={filters}
+                                            handleFilterChange={
+                                                handleFilterChange
+                                            }
+                                            brands={brands}
+                                            models={models}
+                                            filterOptions={filterOptions}
+                                            isFilterLoading={isFilterLoading}
+                                            clearFilters={clearFilters}
+                                        />
                                     </form>
                                 </div>
                             </div>
@@ -724,7 +540,7 @@ function CarListing() {
                                     </div>
 
                                     <div className="col-lg-12 listing-list-car-wrap listing-grid-car-wrap">
-                                        <div className="container">
+                                        <div className="container-fluid">
                                             <div className="box-tab center flex justify-between items-center mb-10 flex-wrap gap-5 d-lg-none">
                                                 <div className="box-2 flex gap-2 flex-wrap">
                                                     <div className="filter-mobile lg:hidden">
@@ -750,82 +566,83 @@ function CarListing() {
                                                 )}
                                                 {carCards}
                                             </div>
-                                            <nav aria-label="Page navigation">
-                                                <ul className="pagination justify-content-center mt-4">
-                                                    <li
-                                                        className={`page-item ${
-                                                            page === 1
-                                                                ? "disabled"
-                                                                : ""
-                                                        }`}
-                                                    >
-                                                        <button
-                                                            className="page-link"
-                                                            onClick={() =>
-                                                                setPage(
-                                                                    page - 1
-                                                                )
-                                                            }
-                                                            disabled={
+                                            <div className="themesflat-pagination clearfix mt-40">
+                                                <ul>
+                                                    <li>
+                                                        <a
+                                                            href="#"
+                                                            className={`page-numbers style ${
                                                                 page === 1
-                                                            }
+                                                                    ? "disabled"
+                                                                    : ""
+                                                            }`}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                if (page !== 1)
+                                                                    setPage(
+                                                                        page - 1
+                                                                    );
+                                                            }}
                                                         >
-                                                            Previous
-                                                        </button>
+                                                            <i className="far fa-angle-left" />
+                                                        </a>
                                                     </li>
-
                                                     {Array.from(
                                                         { length: totalPages },
                                                         (_, i) => (
-                                                            <li
-                                                                key={i + 1}
-                                                                className={`page-item ${
-                                                                    page ===
-                                                                    i + 1
-                                                                        ? "active"
-                                                                        : ""
-                                                                }`}
-                                                            >
-                                                                <button
-                                                                    className="page-link"
-                                                                    onClick={() =>
+                                                            <li key={i + 1}>
+                                                                <a
+                                                                    href="#"
+                                                                    className={`page-numbers ${
+                                                                        page ===
+                                                                        i + 1
+                                                                            ? "current"
+                                                                            : ""
+                                                                    }`}
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.preventDefault();
                                                                         setPage(
                                                                             i +
                                                                                 1
-                                                                        )
-                                                                    }
+                                                                        );
+                                                                    }}
                                                                 >
                                                                     {i + 1}
-                                                                </button>
+                                                                </a>
                                                             </li>
                                                         )
                                                     )}
-
-                                                    <li
-                                                        className={`page-item ${
-                                                            page === totalPages
-                                                                ? "disabled"
-                                                                : ""
-                                                        }`}
-                                                    >
-                                                        <button
-                                                            className="page-link"
-                                                            onClick={() =>
-                                                                setPage(
-                                                                    (prev) =>
-                                                                        prev + 1
-                                                                )
-                                                            }
-                                                            disabled={
+                                                    <li>
+                                                        <a
+                                                            href="#"
+                                                            className={`page-numbers style ${
                                                                 page ===
                                                                 totalPages
-                                                            }
+                                                                    ? "disabled"
+                                                                    : ""
+                                                            }`}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                if (
+                                                                    page !==
+                                                                    totalPages
+                                                                )
+                                                                    setPage(
+                                                                        (
+                                                                            prev
+                                                                        ) =>
+                                                                            prev +
+                                                                            1
+                                                                    );
+                                                            }}
                                                         >
-                                                            Next
-                                                        </button>
+                                                            <i className="far fa-angle-right" />
+                                                        </a>
                                                     </li>
                                                 </ul>
-                                            </nav>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -855,203 +672,15 @@ function CarListing() {
                                 method="post"
                                 onSubmit={(e) => e.preventDefault()}
                             >
-                                <div className="wd-find-select">
-                                    {/* Mobile Search Input */}
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            name="search"
-                                            value={filters.search}
-                                            onChange={handleFilterChange}
-                                            className="form-control"
-                                            placeholder="Search by model, fuel, color, etc."
-                                        />
-                                    </div>
-
-                                    {/* Mobile Brand Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="brand"
-                                                value={filters.brand}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                                disabled={!!brandId}
-                                            >
-                                                <option value="">Brand</option>
-                                                {brands.map((brand) => (
-                                                    <option
-                                                        key={brand._id}
-                                                        value={brand._id}
-                                                    >
-                                                        {brand.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile Model Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="modelName"
-                                                value={filters.modelName}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                                disabled={!filters.brand}
-                                            >
-                                                <option value="">Model</option>
-                                                {models.map((model) => (
-                                                    <option
-                                                        key={model._id}
-                                                        value={model._id}
-                                                    >
-                                                        {model.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile Body Type Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="bodyType"
-                                                value={filters.bodyType}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                            >
-                                                <option value="">Body</option>
-                                                {filterOptions.bodyType.map(
-                                                    (option) => (
-                                                        <option
-                                                            key={option}
-                                                            value={option}
-                                                        >
-                                                            {option}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile Fuel Type Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="fuelType"
-                                                value={filters.fuelType}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                            >
-                                                <option value="">
-                                                    Fuel Type
-                                                </option>
-                                                {filterOptions.fuelType.map(
-                                                    (option) => (
-                                                        <option
-                                                            key={option}
-                                                            value={option}
-                                                        >
-                                                            {option}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile Transmission Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="transmission"
-                                                value={filters.transmission}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                            >
-                                                <option value="">
-                                                    Transmission
-                                                </option>
-                                                {filterOptions.transmission.map(
-                                                    (option) => (
-                                                        <option
-                                                            key={option}
-                                                            value={option}
-                                                        >
-                                                            {option}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile Condition Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <select
-                                                name="condition"
-                                                value={filters.condition}
-                                                onChange={handleFilterChange}
-                                                className="nice-select form-control"
-                                            >
-                                                <option value="">
-                                                    Condition
-                                                </option>
-                                                {filterOptions.condition.map(
-                                                    (option) => (
-                                                        <option
-                                                            key={option}
-                                                            value={option}
-                                                        >
-                                                            {option}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Mobile City Filter */}
-                                    <div className="form-group">
-                                        <div className="group-select">
-                                            <input
-                                                type="text"
-                                                name="city"
-                                                value={filters.city}
-                                                onChange={handleFilterChange}
-                                                className="form-control"
-                                                placeholder="City"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-4">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary w-full"
-                                            data-bs-dismiss="offcanvas"
-                                            disabled={isFilterLoading}
-                                        >
-                                            {isFilterLoading ? (
-                                                <>
-                                                    <span
-                                                        className="spinner-border spinner-border-sm me-2"
-                                                        role="status"
-                                                        aria-hidden="true"
-                                                    ></span>
-                                                    Applying...
-                                                </>
-                                            ) : (
-                                                "Apply Filters"
-                                            )}
-                                        </button>
-                                    </div>
-                                </div>
+                                <ListingFilter
+                                    filters={filters}
+                                    handleFilterChange={handleFilterChange}
+                                    brands={brands}
+                                    models={models}
+                                    filterOptions={filterOptions}
+                                    isFilterLoading={isFilterLoading}
+                                    clearFilters={clearFilters}
+                                />
                             </form>
                         </div>
                     </div>

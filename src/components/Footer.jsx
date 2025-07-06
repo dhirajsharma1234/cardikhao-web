@@ -130,7 +130,7 @@ function Footer() {
                                             About Us
                                         </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <a href="javascript:void(0);">
                                             Careers
                                         </a>
@@ -160,7 +160,7 @@ function Footer() {
                                         <a href="javascript:void(0);">
                                             Sustainability
                                         </a>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <a href="javascript:void(0);">
                                             Testimonials
@@ -188,7 +188,7 @@ function Footer() {
                                             Used car valuation
                                         </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <a href="javascript:void(0);">
                                             Motor insurance
                                         </a>
@@ -212,7 +212,7 @@ function Footer() {
                                         <a href="javascript:void(0);">
                                             Scrap your car
                                         </a>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                             <div className="footer-links-section">
@@ -233,7 +233,7 @@ function Footer() {
                                             Contact us
                                         </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <a href="javascript:void(0);">
                                             Become a partner
                                         </a>
@@ -242,7 +242,7 @@ function Footer() {
                                         <a href="javascript:void(0);">
                                             RC transfer status
                                         </a>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <a href="javascript:void(0);">
                                             Terms & conditions
@@ -327,7 +327,7 @@ function Footer() {
                                     </a>
                                 </li>
                             </ul>
-                            <div className="app-downloads">
+                            {/* <div className="app-downloads">
                                 <a href="javascript:void(0);">
                                     <img
                                         loading="lazy"
@@ -375,7 +375,7 @@ function Footer() {
                                         <span>UAE</span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                     <p className="copyright">

@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import { fetchSimilarCars } from "../util/api";
 import { toast } from "react-hot-toast";
 import Loader from "../components/Loader";
+import { formatPriceINR } from "../util/priceConversion";
 
 // API functions
 const fetchCarById = async (carId) => {
@@ -581,6 +582,7 @@ function CarDetails() {
                 <div className="cars-container">
                     <div className="cars-header justify-content-center">
                         <div className="cars-header-content text-center">
+                            <p className="cars-subtitle">Still can't decide?</p>
                             <h2 className="cars-title">
                                 Explore similar {car?.brand?.name} cars
                             </h2>
@@ -637,18 +639,28 @@ function CarDetails() {
                                                                                 ?.name
                                                                         }
                                                                         loading="lazy"
-                                                                        width={
-                                                                            220
-                                                                        }
-                                                                        height={
-                                                                            120
-                                                                        }
+                                                                        // Removed fixed width/height to allow full image display
                                                                         src={`https://cardikhao-production.up.railway.app/uploads/cars/${
                                                                             similarCar
                                                                                 .images?.[0] ||
                                                                             "default-car.jpg"
                                                                         }`}
                                                                     />
+                                                                </div>
+                                                                <div className="cars-wishlist-button">
+                                                                    <button aria-label="Add to wishlist">
+                                                                        <img
+                                                                            alt="Add to wishlist"
+                                                                            loading="lazy"
+                                                                            width={
+                                                                                24
+                                                                            }
+                                                                            height={
+                                                                                24
+                                                                            }
+                                                                            src="https://assets.cars24.com/production/catalog-web-in/250627155610/_next/static/media/icon-heart-empty.479d2b8c.svg"
+                                                                        />
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -671,6 +683,13 @@ function CarDetails() {
                                                                                     ?.name
                                                                             }
                                                                         </h3>
+                                                                        {similarCar.variant && (
+                                                                            <span className="cars-model-variant">
+                                                                                {
+                                                                                    similarCar.variant
+                                                                                }
+                                                                            </span>
+                                                                        )}
                                                                     </div>
                                                                     <div className="cars-specs-list">
                                                                         <ul className="cars-specs">
@@ -689,10 +708,11 @@ function CarDetails() {
                                                                                 }
                                                                             </li>
                                                                             <li className="cars-spec-item">
-                                                                                {similarCar.condition ===
-                                                                                "used"
-                                                                                    ? "Used"
-                                                                                    : "New"}
+                                                                                {similarCar.ownerCount ||
+                                                                                    (similarCar.condition ===
+                                                                                    "used"
+                                                                                        ? "Used"
+                                                                                        : "New")}
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -703,10 +723,53 @@ function CarDetails() {
                                                                             <div className="cars-price-amount">
                                                                                 <p className="cars-price">
                                                                                     ₹
-                                                                                    {similarCar.price?.toLocaleString()}
+                                                                                    {formatPriceINR(
+                                                                                        similarCar.price
+                                                                                    )}
                                                                                 </p>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="cars-footer-details">
+                                                                <div className="cars-divider" />
+                                                                <div className="cars-badge-container">
+                                                                    <div className="cars-assured-badge">
+                                                                        <img
+                                                                            alt="CARS24 Assured"
+                                                                            loading="lazy"
+                                                                            width={
+                                                                                12
+                                                                            }
+                                                                            height={
+                                                                                12
+                                                                            }
+                                                                            src="https://media.cars24.com/india/car-catalog/icons_13122024/cars24-assured.png"
+                                                                        />
+                                                                        <p>
+                                                                            CARS24
+                                                                            Assured
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="cars-location-info">
+                                                                    <img
+                                                                        alt="address-icon"
+                                                                        loading="lazy"
+                                                                        width={
+                                                                            12
+                                                                        }
+                                                                        height={
+                                                                            12
+                                                                        }
+                                                                        src="https://media.cars24.com/india/car-catalog/icons_13122024/location.png"
+                                                                    />
+                                                                    <div className="cars-address">
+                                                                        <p>
+                                                                            {similarCar.city ||
+                                                                                "Location not specified"}
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -717,6 +780,7 @@ function CarDetails() {
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
+
                                 <button
                                     type="button"
                                     className="cars-slider-arrow cars-prev-arrow"
@@ -759,6 +823,7 @@ function CarDetails() {
                                         />
                                     </svg>
                                 </button>
+
                                 <div className="cars-slider-dots" />
                             </>
                         ) : (
