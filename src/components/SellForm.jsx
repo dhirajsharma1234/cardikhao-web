@@ -77,7 +77,7 @@ function SellForm() {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    "http://localhost:8000/api/brand/all?page=1&limit=50"
+                    "https://cardikhao-production.up.railway.app/api/brand/all?page=1&limit=50"
                 );
                 setBrands(response.data.data);
             } catch (err) {
@@ -198,7 +198,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "http://localhost:8000/api/sell/car",
+                "https://cardikhao-production.up.railway.app/api/sell/car",
                 formDataToSend,
                 config
             );

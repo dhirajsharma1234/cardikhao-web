@@ -323,28 +323,48 @@ function CarDetails() {
                                     slidesPerView={1}
                                     loop={true}
                                 >
-                                    {images?.map((img, i) => (
-                                        <SwiperSlide key={i}>
+                                    {images.length > 0 ? (
+                                        images?.map((img, i) => (
+                                            <SwiperSlide key={i}>
+                                                <div className="image-list-details">
+                                                    <div
+                                                        className="image"
+                                                        onClick={() =>
+                                                            handleImageClick(i)
+                                                        }
+                                                        style={{
+                                                            cursor: "pointer",
+                                                        }}
+                                                    >
+                                                        <img
+                                                            src={img}
+                                                            alt={`Slide ${i}`}
+                                                            className="lazyload"
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </SwiperSlide>
+                                        ))
+                                    ) : (
+                                        <SwiperSlide>
                                             <div className="image-list-details">
                                                 <div
                                                     className="image"
-                                                    onClick={() =>
-                                                        handleImageClick(i)
-                                                    }
                                                     style={{
-                                                        cursor: "pointer",
+                                                        cursor: "default",
                                                     }}
                                                 >
                                                     <img
-                                                        src={img}
-                                                        alt={`Slide ${i}`}
+                                                        src="http://localhost:8000/uploads/cars/car-not-found.png"
+                                                        alt="Car Not Found"
                                                         className="lazyload"
                                                         loading="lazy"
                                                     />
                                                 </div>
                                             </div>
                                         </SwiperSlide>
-                                    ))}
+                                    )}
                                     <div className="swiper-button-next style-3" />
                                     <div className="swiper-button-prev style-3" />
                                 </Swiper>
@@ -640,11 +660,12 @@ function CarDetails() {
                                                                         }
                                                                         loading="lazy"
                                                                         // Removed fixed width/height to allow full image display
-                                                                        src={`https://cardikhao-production.up.railway.app/uploads/cars/${
+                                                                        src={
                                                                             similarCar
-                                                                                .images?.[0] ||
-                                                                            "default-car.jpg"
-                                                                        }`}
+                                                                                .images?.[0]
+                                                                                ? `https://cardikhao-production.up.railway.app/uploads/cars/${similarCar.images[0]}`
+                                                                                : `http://localhost:8000/uploads/cars/car-not-found.png`
+                                                                        }
                                                                     />
                                                                 </div>
                                                                 <div className="cars-wishlist-button">
