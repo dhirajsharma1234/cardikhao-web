@@ -335,7 +335,7 @@ function Home() {
                             width="100%"
                             height="100%"
                             preload="auto"
-                            fetchpriority="high"
+                            // fetchpriority="high"
                             className="interactiveElement"
                         />
                     </div>
@@ -478,7 +478,7 @@ function Home() {
                                         >
                                             <img
                                                 alt={brand.name}
-                                                fetchpriority="high"
+                                                // fetchpriority="high"
                                                 loading="lazy"
                                                 width={65}
                                                 height={32}
