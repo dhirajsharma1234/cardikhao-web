@@ -223,7 +223,7 @@ function CarListing() {
                                             src={
                                                 car.images?.[0]
                                                     ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
-                                                    : "http://localhost:8000/uploads/cars/car-not-found.png"
+                                                    : "https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
                                             }
                                         />
                                     </div>

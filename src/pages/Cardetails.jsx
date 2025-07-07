@@ -356,7 +356,7 @@ function CarDetails() {
                                                     }}
                                                 >
                                                     <img
-                                                        src="http://localhost:8000/uploads/cars/car-not-found.png"
+                                                        src="https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
                                                         alt="Car Not Found"
                                                         className="lazyload"
                                                         loading="lazy"
@@ -664,7 +664,7 @@ function CarDetails() {
                                                                             similarCar
                                                                                 .images?.[0]
                                                                                 ? `https://cardikhao-production.up.railway.app/uploads/cars/${similarCar.images[0]}`
-                                                                                : `http://localhost:8000/uploads/cars/car-not-found.png`
+                                                                                : `https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png`
                                                                         }
                                                                     />
                                                                 </div>

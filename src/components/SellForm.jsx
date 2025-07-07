@@ -278,7 +278,7 @@ function SellForm() {
                                     }}
                                 >
                                     <img
-                                        src={`http://localhost:8000/uploads/brands/${brand.logo}`}
+                                        src={`https://cardikhao-production.up.railway.app/uploads/brands/${brand.logo}`}
                                         alt={brand.name}
                                         className="brand-logo"
                                         onError={(e) => {
