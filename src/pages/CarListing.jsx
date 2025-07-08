@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllCars, fetchCarsByBrand } from "../util/api";
+import { fetchAllCars } from "../util/api";
 import { useDebounce } from "use-debounce";
 import ListingFilter from "../components/ListingFilter";
 import Loader from "../components/Loader";
@@ -222,7 +222,7 @@ function CarListing() {
                                             height={180}
                                             src={
                                                 car.images?.[0]
-                                                    ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
+                                                    ? `http://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
                                                     : "https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
                                             }
                                         />

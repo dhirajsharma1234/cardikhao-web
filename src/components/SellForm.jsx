@@ -42,19 +42,19 @@ function SellForm() {
     const totalSteps = 10; // Adjusted for your API fields
 
     // Data options
-    const fuelTypes = ["Petrol", "Diesel", "Electric", "Hybrid", "CNG"];
+    const fuelTypes = ["petrol", "diesel", "electric", "hybrid", "cng"];
     const transmissions = ["Manual", "Automatic"];
     const bodyTypes = [
-        "Sedan",
+        "SEDAN",
         "SUV",
-        "Hatchback",
-        "Coupe",
-        "Convertible",
-        "Wagon",
-        "Van",
-        "Pickup",
+        "HATCHBACK",
+        "COUPE",
+        "CONVERTIBLE",
+        "WAGON",
+        "VAN",
+        "PICKUP",
     ];
-    const conditions = ["New", "Used", "Refurbished"];
+    const conditions = ["new", "used"];
     const colors = [
         "Black",
         "White",
@@ -198,7 +198,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "https://cardikhao-production.up.railway.app/api/sell/car",
+                "http://localhost:8000/api/sell/car",
                 formDataToSend,
                 config
             );

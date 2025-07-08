@@ -35,7 +35,7 @@ export const fetchAllCars = async ({
         ...(transmission && { transmission }),
         ...(condition && { condition }),
         ...(city && { city }),
-        ...(search && { "modelName.name": search }),
+        ...(search && { search }),
         ...(maxPrice && { maxPrice }),
     };
 
@@ -69,40 +69,6 @@ export const fetchSimilarCars = async (brand: string, modelName: string) => {
         console.error("Error fetching similar cars:", error);
         return { cars: [] };
     }
-};
-
-export const fetchCarsByBrand = async ({
-    brandId,
-    page = 1,
-    limit = 10,
-    modelName,
-    bodyType,
-    fuelType,
-    transmission,
-    condition,
-    city,
-    search,
-}) => {
-    if (!brandId) throw new Error("Brand ID is required");
-
-    const params = {
-        page,
-        limit,
-        ...(modelName && { "modelName._id": modelName }),
-        ...(bodyType && { bodyType }),
-        ...(fuelType && { fuelType }),
-        ...(transmission && { transmission }),
-        ...(condition && { condition }),
-        ...(city && { city }),
-        ...(search && { "modelName.name": search }),
-    };
-
-    const res = await axios.get(
-        `https://cardikhao-production.up.railway.app/api/car/brand/${brandId}`,
-        { params }
-    );
-
-    return res.data;
 };
 
 export const fetchCarById = async (carId: string) => {
