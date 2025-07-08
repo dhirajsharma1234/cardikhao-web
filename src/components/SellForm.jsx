@@ -198,7 +198,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "http://localhost:8000/api/sell/car",
+                "https://cardikhao-production.up.railway.app/api/sell/car",
                 formDataToSend,
                 config
             );
