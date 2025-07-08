@@ -21,6 +21,7 @@ function CarListing() {
     const [page, setPage] = useState(1);
     const limit = 9;
     const [isFilterLoading, setIsFilterLoading] = useState(false);
+    const [showMobileFilter, setShowMobileFilter] = useState(false);
 
     // Parse query parameters
     const searchParams = new URLSearchParams(location.search);
@@ -544,15 +545,28 @@ function CarListing() {
                                             <div className="box-tab center flex justify-between items-center mb-10 flex-wrap gap-5 d-lg-none">
                                                 <div className="box-2 flex gap-2 flex-wrap">
                                                     <div className="filter-mobile lg:hidden">
-                                                        <a
-                                                            data-bs-toggle="offcanvas"
-                                                            data-bs-target="#offcanvasRight"
-                                                            aria-controls="offcanvasRight"
-                                                            className="filter flex items-center gap-2 bg-gray-100 px-4 py-2 rounded"
+                                                        <button
+                                                            onClick={() =>
+                                                                setShowMobileFilter(
+                                                                    true
+                                                                )
+                                                            }
+                                                            className="filter flex items-center gap-2 bg-gray-100 px-4 py-2 rounded hover:bg-gray-200 transition-colors"
                                                         >
+                                                            <svg
+                                                                width="16"
+                                                                height="16"
+                                                                viewBox="0 0 16 16"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    d="M6.66667 12.6667H9.33333V11.3333H6.66667V12.6667ZM2 3.33333V4.66667H14V3.33333H2ZM4 8H12V6.66667H4V8Z"
+                                                                    fill="white"
+                                                                />
+                                                            </svg>
                                                             Filter
-                                                            <i className="icon-autodeal-filter" />
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -651,37 +665,32 @@ function CarListing() {
                     </div>
                 </div>
                 {/* Offcanvas for Mobile Filters */}
+
                 <div
-                    className="offcanvas offcanvas-end"
-                    tabIndex="-1"
-                    id="offcanvasRight"
-                    aria-labelledby="offcanvasRightLabel"
+                    className={`mobile-filter-overlay ${
+                        showMobileFilter ? "active" : ""
+                    }`}
                 >
-                    <div className="offcanvas-header">
-                        <h5 id="offcanvasRightLabel">Filters and Sort</h5>
-                        <button
-                            type="button"
-                            className="btn-close text-reset"
-                            data-bs-dismiss="offcanvas"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div className="offcanvas-body">
-                        <div className="form-filter-siderbar">
-                            <form
-                                method="post"
-                                onSubmit={(e) => e.preventDefault()}
+                    <div className="mobile-filter-container">
+                        <div className="mobile-filter-header">
+                            <h5>Filters and Sort</h5>
+                            <button
+                                onClick={() => setShowMobileFilter(false)}
+                                className="close-filter"
                             >
-                                <ListingFilter
-                                    filters={filters}
-                                    handleFilterChange={handleFilterChange}
-                                    brands={brands}
-                                    models={models}
-                                    filterOptions={filterOptions}
-                                    isFilterLoading={isFilterLoading}
-                                    clearFilters={clearFilters}
-                                />
-                            </form>
+                                &times;
+                            </button>
+                        </div>
+                        <div className="mobile-filter-body">
+                            <ListingFilter
+                                filters={filters}
+                                handleFilterChange={handleFilterChange}
+                                brands={brands}
+                                models={models}
+                                filterOptions={filterOptions}
+                                isFilterLoading={isFilterLoading}
+                                clearFilters={clearFilters}
+                            />
                         </div>
                     </div>
                 </div>
@@ -748,6 +757,57 @@ function CarListing() {
                     justify-content: center;
                     align-items: center;
                     z-index: 10;
+                }
+                .mobile-filter-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 1000;
+                    display: none;
+                }
+
+                .mobile-filter-overlay.active {
+                    display: block;
+                }
+
+                .mobile-filter-container {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    width: 85%;
+                    max-width: 400px;
+                    height: 100%;
+                    background: white;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease-out;
+                    overflow-y: auto;
+                    z-index: 1001;
+                }
+
+                .mobile-filter-overlay.active .mobile-filter-container {
+                    transform: translateX(0);
+                }
+
+                .mobile-filter-header {
+                    padding: 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .mobile-filter-body {
+                    padding: 15px;
+                }
+
+                .close-filter {
+                    background: none;
+                    border: none;
+                    font-size: 24px;
+                    cursor: pointer;
                 }
             `}</style>
         </>
