@@ -16204,7 +16204,7 @@ p.active::after{
         /* Base styles */
   .tab-component {
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
     padding: 0 24px 24px;
     border-radius: 16px;
@@ -17710,8 +17710,7 @@ p.active::after{
     /* Car Slider */
     .cars-slider-wrapper {
       position: relative;
-      overflow: hidden;
-      padding: 0 60px;
+      padding: 0px;
     }
 
     .cars-slider-container {
@@ -17727,13 +17726,14 @@ p.active::after{
     }
 
     .cars-slide {
-      flex: 0 0 328px;
+      flex: 0 0 370px;
       scroll-snap-align: start;
     }
 
     .cars-slider-arrow {
       position: absolute;
-      top: 50%;
+      top: 0;
+      margin-top: -45px;
       transform: translateY(-50%);
       background: #fff;
       border: 1px solid #d6d6d6;
@@ -17762,11 +17762,13 @@ p.active::after{
     }
 
     .cars-prev-arrow {
-      left: 0;
+      right: 0;
+      margin-right: 120px;
     }
 
     .cars-next-arrow {
       right: 0;
+      margin-right: 60px;
     }
 
     .cars-slider-arrow svg {

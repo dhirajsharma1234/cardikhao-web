@@ -8,6 +8,7 @@ import useTabs from "../hooks/useTabs";
 import useSearch from "../hooks/useSearch";
 import { fetchAllCars, fetchBrands } from "../util/api";
 import { useQuery } from "@tanstack/react-query";
+import TestiMonial from "../components/TestiMonial";
 
 // Import Swiper styles
 import "swiper/css";
@@ -53,9 +54,9 @@ const BANNER_CARDS = [
 const SERVICE_ITEMS = [
     { title: "Buy used car", to: "/carlisting" },
     { title: "Sell car", to: "/sell-car" },
-    { title: "Car finance", to: "/car-loan" },
-    { title: "New cars", to: "/new-cars" },
-    { title: "Car services", to: "/car-services" },
+    { title: "Car finance", to: "/" },
+    { title: "New cars", to: "/" },
+    { title: "Car services", to: "/" },
     // { title: "Car insurance", to: "/car-insurance" },
     // { title: "Car valuation", to: "/used-car-valuation" },
     // { title: "EMI calculator", to: "/emi-calculator" },
@@ -325,6 +326,144 @@ function Home() {
             <div id="marketingWeatherHeader">
                 <div className="marketingBanner__container">
                     <div className="marketingBanner__videoContainer">
+                        {/* YouTube iframe with autoplay, loop, and no controls */}
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/videoseries?list=PLkIAuxN4a74QeJ99nNTQ-Ox5cjd-37d2z&autoplay=1&mute=1&loop=1&playlist=PLkIAuxN4a74QeJ99nNTQ-Ox5cjd-37d2z&controls=0&modestbranding=1&rel=0"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="interactiveElement"
+                            title="Marketing Banner Video"
+                        />
+                    </div>
+                    <div className="videoOverlay" />
+                    <div className="searchContainer">
+                        <div className="searchInput__wrapper">
+                            <div className="interactiveElement">
+                                <div className="searchInput__field">
+                                    <div className="searchInput__icon">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            className="searchIcon"
+                                        >
+                                            <path
+                                                d="M17.942 17.058l-3.912-3.911a6.884 6.884 0 10-.883.883l3.91 3.912a.624.624 0 10.885-.884zM3.125 8.75a5.625 5.625 0 115.625 5.625A5.631 5.631 0 013.125 8.75z"
+                                                fill="#717272"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <input
+                                        ref={searchInputRef}
+                                        placeholder={placeholder}
+                                        className="searchInput animatedPlaceholder"
+                                        type="text"
+                                        aria-label="Search cars"
+                                        onKeyDown={handleSearch}
+                                    />
+                                </div>
+                            </div>
+                            <div className="aqiIndicator__wrapper">
+                                <div className="aqiIndicator greenAQI">
+                                    AQI: 104
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bannerCards__container">
+                        {[
+                            {
+                                title: "Buy used car",
+                                offer: "Up To 20% OFF",
+                                image: "assets/images/video/car-1.webp",
+                                ariaLabel: "Buy used car with up to 20% off",
+                                offerBg: "var(--orange-50)",
+                                offerColor: "var(--orange-500)",
+                                to: "/carlisting",
+                            },
+                            {
+                                title: "Get loans",
+                                description: "For cars, personal needs & more.",
+                                image: "assets/images/video/loan-1.webp",
+                                ariaLabel:
+                                    "Get loans for cars and personal needs",
+                                to: "/",
+                            },
+                            {
+                                title: "Get insured",
+                                description: "For your car, health & life.",
+                                image: "assets/images/video/insured-1.webp",
+                                ariaLabel:
+                                    "Get insured for your car, health and life",
+                                to: "/",
+                            },
+                            {
+                                title: "Sell car",
+                                description: "15,000+ buyer network.",
+                                image: "assets/images/video/sell-car.webp",
+                                ariaLabel:
+                                    "Sell car with 15,000+ buyer network",
+                                to: "/sell-car",
+                            },
+                        ].map((card, index) => (
+                            <Link
+                                key={index}
+                                to={card.to}
+                                className="bannerCard interactiveElement"
+                                style={{ background: "rgb(248, 250, 252)" }}
+                                aria-label={card.ariaLabel}
+                            >
+                                <div className="bannerCard__content">
+                                    <p
+                                        className="bannerCard__title interactiveElement"
+                                        style={{ color: "rgb(0, 0, 0)" }}
+                                    >
+                                        {card.title}
+                                    </p>
+                                    {card.offer && (
+                                        <div
+                                            className="bannerCard__offer interactiveElement"
+                                            style={{
+                                                background: card.offerBg,
+                                                color: card.offerColor,
+                                            }}
+                                        >
+                                            {card.offer}
+                                        </div>
+                                    )}
+                                    {card.description && (
+                                        <p
+                                            className="bannerCard__description interactiveElement"
+                                            style={{
+                                                color: "rgba(0, 0, 0, 0.53)",
+                                            }}
+                                        >
+                                            {card.description}
+                                        </p>
+                                    )}
+                                </div>
+                                <div className="bannerCard__image">
+                                    <img
+                                        alt={card.title}
+                                        loading="lazy"
+                                        width={75}
+                                        height={56}
+                                        decoding="async"
+                                        className="interactiveElement"
+                                        src={card.image}
+                                        style={{ color: "transparent" }}
+                                    />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            {/* <div id="marketingWeatherHeader">
+                <div className="marketingBanner__container">
+                    <div className="marketingBanner__videoContainer">
                         <video
                             src="assets/images/video/banner-video.mp4"
                             autoPlay
@@ -379,7 +518,7 @@ function Home() {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Service Area */}
             <div id="web-service" className="m-view-none">
@@ -1221,9 +1360,10 @@ function Home() {
             >
                 <div className="auto-news-container container">
                     <h2 className="section-heading blue-accent">
-                        Latest from autoverse
+                        What motivates us
                     </h2>
-                    <div className="auto-news-slider-container">
+                    <TestiMonial />
+                    {/* <div className="auto-news-slider-container">
                         <Swiper
                             modules={[Navigation, Pagination]}
                             navigation={{
@@ -1317,7 +1457,7 @@ function Home() {
                             Next
                         </button>
                         <div className="auto-news-mobile-indicators" />
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -1350,7 +1490,11 @@ function Home() {
                                 },
                             ].map((option, index) => (
                                 <div key={index} className="help-option">
-                                    <a href="#" className="help-card">
+                                    <Link
+                                        to="https://wa.me/8603977536?text=Hello%20I%20would%20like%20to%20make%20an%20enquiry."
+                                        target="_blank"
+                                        className="help-card"
+                                    >
                                         <img
                                             src={option.icon}
                                             alt={option.alt}
@@ -1371,7 +1515,7 @@ function Home() {
                                         >
                                             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
                                         </svg>
-                                    </a>
+                                    </Link>
                                 </div>
                             ))}
                         </div>

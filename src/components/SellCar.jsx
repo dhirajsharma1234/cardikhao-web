@@ -3,6 +3,7 @@
 import React from "react";
 import SellForm from "../components/SellForm";
 import SellFaq from "../components/SellFaq";
+import { Link } from "react-router-dom";
 
 function SellCar() {
     return (
@@ -530,7 +531,9 @@ function SellCar() {
                                         ensure a hassle free experience and
                                         legal compliance for peace of mind.
                                     </p>
-                                    <a href="#">Sell car now &gt;</a>
+                                    <Link to="/sell-car">
+                                        Sell car now &gt;
+                                    </Link>
                                 </div>
                             </div>
                         </div>

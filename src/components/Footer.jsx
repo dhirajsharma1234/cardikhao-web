@@ -126,9 +126,7 @@ function Footer() {
                                 </h4>
                                 <ul className="footer-links-list">
                                     <li>
-                                        <a href="javascript:void(0);">
-                                            About Us
-                                        </a>
+                                        <Link to="/about">About Us</Link>
                                     </li>
                                     {/* <li>
                                         <a href="javascript:void(0);">
@@ -174,19 +172,19 @@ function Footer() {
                                 </h4>
                                 <ul className="footer-links-list">
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <Link to="/carlisting">
                                             Buy used car
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <Link to="/sell-car">
                                             Sell used car
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <Link to="/carlisting">
                                             Used car valuation
-                                        </a>
+                                        </Link>
                                     </li>
                                     {/* <li>
                                         <a href="javascript:void(0);">
@@ -531,8 +529,8 @@ function Footer() {
                         </div>
                         <span className="mobile-footer-nav-label">Orbit</span>
                     </button>
-                    <a
-                        href="javascript:void(0);"
+                    <Link
+                        to="/sell-car"
                         className={`mobile-footer-nav-item ${
                             activeNav === "sell" ? "mobile-active" : ""
                         }`}
@@ -602,7 +600,7 @@ function Footer() {
                         <span className="mobile-footer-nav-label">
                             Sell car
                         </span>
-                    </a>
+                    </Link>
                     <button
                         className={`mobile-footer-nav-item ${
                             activeNav === "loan" ? "mobile-active" : ""

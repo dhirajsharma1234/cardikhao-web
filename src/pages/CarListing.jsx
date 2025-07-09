@@ -30,6 +30,9 @@ function CarListing() {
     const priceType = searchParams.get("maxPrice");
     const brandType = searchParams.get("brand");
 
+    console.log("My brand type");
+    console.log(brandType);
+
     // State for filters
     const [filters, setFilters] = useState({
         search: "",
@@ -72,7 +75,7 @@ function CarListing() {
         const fetchBrands = async () => {
             try {
                 const response = await axios.get(
-                    "https://cardikhao-production.up.railway.app/api/brand/all?page=1&limit=100"
+                    "https://cardikhao-production.up.railway.app/api/brand/all?page=1&limit=10"
                 );
                 setBrands(response?.data?.data || []);
             } catch (error) {
