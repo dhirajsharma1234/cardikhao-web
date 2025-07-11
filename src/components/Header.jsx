@@ -535,12 +535,12 @@ function Header() {
                             </Link>
                         </div>
                         <div className="bottom-canvas">
-                            <div className="login-box flex align-center">
+                            {/* <div className="login-box flex align-center">
                                 <i className="icon-autodeal-user fs-20" />
                                 <Link to="/login" className="fw-7 font-2">
                                     Login
                                 </Link>
-                            </div>
+                            </div> */}
                             <div className="menu-outer">
                                 <ul className="navigation clearfix">
                                     <li className="current">
@@ -824,7 +824,7 @@ function Header() {
                                 </ul>
                             </div>
                             <div className="button-mobi-sell">
-                                <Link
+                                {/* <Link
                                     className="sc-button btn-icon center"
                                     to="/add-listing"
                                     onClick={toggleMobileMenu}
@@ -862,7 +862,7 @@ function Header() {
                                         </defs>
                                     </svg>
                                     <span>Add listing</span>
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                     </nav>

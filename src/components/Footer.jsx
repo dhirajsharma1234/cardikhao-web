@@ -100,7 +100,7 @@ function Footer() {
                 className="site-footer"
                 style={{
                     background:
-                        "linear-gradient(270deg, rgba(251, 255, 246, 0.2) 0.45%, rgba(255, 255, 255, 0) 194.45%), linear-gradient(1deg, rgba(171, 254, 214, 0.2) 15.19%, rgba(228, 254, 186, 0.2) 76.1%, rgba(255, 255, 255, 0.2) 105.61%)",
+                        "linear-gradient(270deg, rgba(1, 39, 88, 0.05) 0.45%, rgba(255, 255, 255, 0) 194.45%), linear-gradient(1deg, rgba(1, 39, 88, 0.08) 15.19%, rgba(1, 39, 88, 0.04) 76.1%, rgba(255, 255, 255, 0.02) 105.61%)",
                 }}
             >
                 <div className="footer-container">
@@ -227,9 +227,7 @@ function Footer() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
-                                            Contact us
-                                        </a>
+                                        <Link to="/contactUs">Contact us</Link>
                                     </li>
                                     {/* <li>
                                         <a href="javascript:void(0);">

@@ -115,7 +115,7 @@ body{
 }
 .main-header.style2 .header-account .flat-bt-top .sc-button {
   border: 1px solid #FFFFFF;
-  background-color: #000;
+  background-color: #1d3c66;
 }
 .main-header.style2 .header-account .flat-bt-top .sc-button{
   display: flex;
@@ -5359,7 +5359,7 @@ body{
 
 .tf-section-map .map,
 .tf-section-map .map-content {
-  height: 855px;
+  height: 455px;
   width: 100%;
 }
 
@@ -19153,4 +19153,179 @@ p.active::after{
   text-align: center;
   display: block;
   text-transform: uppercase;
+}
+/* Contact us */
+.contact-us{
+  position: relative;
+}
+.contact-us .banner-area{
+  background-image: url('../../assets/images/section/bg-12.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-bottom-left-radius: 70% 30%;
+    border-bottom-right-radius: 70% 30%; */
+}
+.contact-us .banner-area .banner-text{
+  text-align: center;
+}
+.contact-us .banner-area .banner-text h2{
+  font-size: 40px;
+    line-height: 70px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #fff;
+}
+.contact-card {
+  width: 100%;
+  max-width: 862px;
+  padding: 2.5rem;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  margin: 0 auto;
+  background: #fff;
+  position: relative;
+  top: -110px;
+}
+
+.contact-map {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 259px;
+  border: none;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.office-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.office-details h3 {
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.email-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.email-section {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.email-section h3 {
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.email-section a {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #717272;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.email-section a:hover {
+  color: #24d366;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.divider span {
+  white-space: nowrap;
+  color: #717272;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
+  padding: 0 15px;
+}
+
+.whatsapp-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(36, 211, 102, 0.03);
+  border: 1px solid #24d366;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.whatsapp-btn:hover {
+  background: rgba(36, 211, 102, 0.1);
+}
+
+.whatsapp-btn p {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: #24d366;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .contact-card {
+      top: -130px;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-card {
+      padding: 1.5rem;
+  }
+  
+  .email-section {
+      min-width: 100%;
+  }
+}
+.pt-100{
+  padding-top: 100px;
+}
+.pt-50{
+  padding-top: 50px;
 }

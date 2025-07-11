@@ -29,13 +29,14 @@ function CarListing() {
     const initialFuelType = searchParams.get("fuelType");
     const priceType = searchParams.get("maxPrice");
     const brandType = searchParams.get("brand");
+    const searchQuery = searchParams.get("search");
 
     console.log("My brand type");
     console.log(brandType);
 
     // State for filters
     const [filters, setFilters] = useState({
-        search: "",
+        search: searchQuery || "",
         brand: brandType || brandId || "",
         modelName: "",
         bodyType: initialBodyType || "",
@@ -215,120 +216,94 @@ function CarListing() {
             <div className="col-md-4" key={car._id}>
                 <div className="cars-card">
                     <Link to={`/car/${car._id}`} className="cars-card-link">
-                        <div className="cars-card-content">
-                            <div className="cars-image-container">
-                                <div className="cars-image-wrapper">
-                                    <div className="cars-image">
-                                        <img
-                                            alt={`${car.brand?.name} ${car.modelName?.name}`}
-                                            loading="lazy"
-                                            style={{ width: "100%" }}
-                                            height={180}
-                                            src={
-                                                car.images?.[0]
-                                                    ? `http://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
-                                                    : "https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
-                                            }
-                                        />
+                        <div className="box-car-list hv-one">
+                            <div className="image-group relative ">
+                                <div className="top flex-two">
+                                    <ul className="d-flex gap-8">
+                                        {car?.isFeatured && (
+                                            <li className="flag-tag success">
+                                                Featured
+                                            </li>
+                                        )}
+                                        <li className="flag-tag success">
+                                            {car?.condition === "new"
+                                                ? "new"
+                                                : "used"}
+                                        </li>
+                                    </ul>
+                                    <div className="year flag-tag">
+                                        {car.year}
                                     </div>
+                                </div>
+                                <div className="img-style">
+                                    <img
+                                        className="lazyload"
+                                        data-src={
+                                            car.images?.[0]
+                                                ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
+                                                : "https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
+                                        }
+                                        src={
+                                            car.images?.[0]
+                                                ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
+                                                : "https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
+                                        }
+                                        alt={`${car?.brand?.name} ${car?.modelName?.name}`}
+                                        loading="lazy"
+                                        style={{
+                                            width: "100%",
+                                            height: "206px",
+                                        }}
+                                    />
                                 </div>
                             </div>
-                            <div className="cars-details-container">
-                                <div className="cars-main-details">
-                                    <div className="cars-info">
-                                        <div className="cars-title-wrapper">
-                                            <h3 className="cars-model-title">
-                                                {car.year} {car.brand?.name}{" "}
-                                                {car.modelName?.name}
-                                            </h3>
-                                            <span className="cars-model-variant">
-                                                {car.bodyType}
-                                            </span>
-                                        </div>
-                                        <div className="cars-specs-list">
-                                            <ul className="cars-specs">
-                                                <li className="cars-spec-item">
-                                                    {car.kmRun} km
-                                                </li>
-                                                <li className="cars-spec-item">
-                                                    {car.fuelType}
-                                                </li>
-                                                <li className="cars-spec-item">
-                                                    {car.transmission}
-                                                </li>
-                                                <li className="cars-spec-item">
-                                                    {car.condition === "new"
-                                                        ? "1st owner"
-                                                        : "2nd owner"}
-                                                </li>
-                                                {car.isSold && (
-                                                    <li className="cars-spec-item text-red-500 font-bold">
-                                                        SOLD
-                                                    </li>
-                                                )}
-                                            </ul>
-                                        </div>
+                            <div className="content">
+                                <div className="text-address">
+                                    <p className="text-color-3 font">
+                                        {car.bodyType}
+                                    </p>
+                                </div>
+                                <h5 className="link-style-1">
+                                    <a href="#">
+                                        {car?.year} {car?.brand?.name}{" "}
+                                        {car?.modelName?.name}
+                                    </a>
+                                </h5>
+                                <div className="icon-box flex flex-wrap">
+                                    <div className="icons flex-three">
+                                        <i className="icon-autodeal-km1" />
+                                        <span>{car.kmRun} km</span>
+                                    </div>
+                                    <div className="icons flex-three">
+                                        <i className="icon-autodeal-diesel" />
+                                        <span>{car?.fuelType}</span>
+                                    </div>
+                                    <div className="icons flex-three">
+                                        <i className="icon-autodeal-automatic" />
+                                        <span>{car?.transmission}</span>
                                     </div>
                                 </div>
-                                <div className="cars-footer-details">
-                                    <div className="cars-divider" />
-                                    <div
-                                        className="cars-badge-container"
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: car.isFeatured
-                                                ? "space-between"
-                                                : "center",
-                                        }}
-                                    >
-                                        {car.isFeatured && (
-                                            <div className="cars-assured-badge">
-                                                <img
-                                                    alt="CARS24 Assured"
-                                                    loading="lazy"
-                                                    width={12}
-                                                    height={12}
-                                                    src="https://media.cars24.com/india/car-catalog/icons_13122024/cars24-assured.png"
-                                                />
-                                                <p>CARS24 Assured</p>
-                                            </div>
-                                        )}
-                                        <div
-                                            className="cars-price-right"
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: car.isFeatured
-                                                    ? "flex-end"
-                                                    : "center",
-                                                justifyContent: car.isFeatured
-                                                    ? "flex-start"
-                                                    : "center",
-                                            }}
-                                        >
-                                            <div className="cars-price-amount">
-                                                <p className="cars-price">
-                                                    ₹{" "}
-                                                    {formatPriceINR(car.price)}
-                                                </p>
-                                            </div>
-                                            <span className="cars-other-charges">
-                                                <p>+ other charges</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="cars-location-info">
+                                <div className="money fs-20 fw-5 lh-25 text-color-3">
+                                    ₹{(car.price / 100000).toFixed(2)} lakh
+                                </div>
+                                <div className="days-box flex justify-space align-center">
+                                    <div className="img-author">
                                         <img
-                                            alt="address-icon"
-                                            loading="lazy"
-                                            width={12}
-                                            height={12}
-                                            src="https://media.cars24.com/india/car-catalog/icons_13122024/location.png"
+                                            className="lazyload"
+                                            data-src="assets/images/logo/logo-circle.png"
+                                            src="assets/images/logo/logo-circle.png"
+                                            alt="image"
                                         />
-                                        <div className="cars-address">
-                                            <p>{car.city}</p>
-                                        </div>
+                                        <span className="font text-color-2 fw-5">
+                                            {car.color}
+                                        </span>
                                     </div>
+                                    <a
+                                        href="listing-detail-v1.html"
+                                        className="view-car"
+                                    >
+                                        View car
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -340,8 +315,19 @@ function CarListing() {
 
     return (
         <>
-            <section className="listing-grid tf-section3">
-                <div className="container2 mx-auto px-4">
+            <section className="listing-grid contact-us tf-section3">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="banner-area">
+                            <div className="container">
+                                <div className="banner-text">
+                                    <h2>Send a signal and we'll catch it!</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container2 mx-auto px-4 pt-50">
                     <div className="row">
                         <div className="col-lg-12 flex flex-col lg:flex-row gap-8">
                             {/* Desktop Filter Sidebar */}
@@ -437,7 +423,7 @@ function CarListing() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-12 listing-list-car-wrap listing-grid-car-wrap">
+                                    {/* <div className="col-lg-12 listing-list-car-wrap listing-grid-car-wrap">
                                         <div className="promo-slider">
                                             <div className="promo-slider__container">
                                                 <Swiper
@@ -541,7 +527,7 @@ function CarListing() {
                                                 </Swiper>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className="col-lg-12 listing-list-car-wrap listing-grid-car-wrap">
                                         <div className="container-fluid">
