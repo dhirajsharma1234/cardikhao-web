@@ -936,13 +936,13 @@ function Home() {
                                         the right car.
                                     </p>
                                     <div className="meta style">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to="/carlisting"
                                             className="sc-button btn-svg btn-55"
                                         >
                                             <span>Find cars</span>
                                             <i className="icon-autodeal-search" />
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -983,9 +983,9 @@ function Home() {
                                         </svg>
                                     </div>
                                     <h3>
-                                        <a href="#">
+                                        <Link to="/sell-car">
                                             Do you want to sell a car?
-                                        </a>
+                                        </Link>
                                     </h3>
                                 </div>
                                 <div className="content">
@@ -995,13 +995,13 @@ function Home() {
                                         online service.
                                     </p>
                                     <div className="meta style">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to="/sell-car"
                                             className="sc-button btn-svg btn-55"
                                         >
                                             <span>Sell a car</span>
                                             <i className="icon-autodeal-next" />
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
