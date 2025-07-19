@@ -527,7 +527,7 @@ function SellCar() {
                                             Stick to Professionals:{" "}
                                         </strong>{" "}
                                         Stick to selling your used car to
-                                        professional sources like CARS24 to
+                                        professional sources like GADI DIKHAO to
                                         ensure a hassle free experience and
                                         legal compliance for peace of mind.
                                     </p>

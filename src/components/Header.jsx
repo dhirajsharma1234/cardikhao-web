@@ -250,73 +250,65 @@ function Header() {
     );
 
     return (
-        <>
-            <header
-                className={`main-header style2 ${
-                    isHeaderFixed ? "is-fixed" : ""
-                } ${isHeaderSmall ? "is-small" : ""}`}
-            >
-                {/* Header Lower */}
-                <div className="header-lower" ref={headerLowerRef}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="inner-container flex justify-space align-center">
-                                    {/* Logo Box */}
-                                    <div className="logo-box flex">
-                                        <div className="logo">
-                                            <Link to="/">
-                                                <img
-                                                    className="lazyload img-none"
-                                                    data-src="assets/images/logo/logo.png"
-                                                    src="assets/images/logo/logo@2x.png"
-                                                    alt="Gadi Dikhao Logo"
-                                                    width={225}
-                                                    height={40}
-                                                />
-                                                <img
-                                                    className="lazyload img-is-fixed"
-                                                    data-src="assets/images/logo/logo@2x.png"
-                                                    src="assets/images/logo/logo@2x.png"
-                                                    alt="Gadi Dikhao Logo"
-                                                    width={225}
-                                                    height={40}
-                                                />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    <div className="nav-outer flex align-center">
-                                        {/* Main Menu */}
-                                        <nav className="main-menu show navbar-expand-md">
-                                            <div
-                                                className="navbar-collapse collapse clearfix"
-                                                id="navbarSupportedContent"
-                                            >
-                                                <ul className="navigation clearfix">
-                                                    <li className="current">
-                                                        <Link to="/">Home</Link>
-                                                    </li>
-                                                    <li className="tfcl-mega-menu dropdown2">
-                                                        <a
-                                                            href="#"
-                                                            onClick={(e) =>
-                                                                e.preventDefault()
-                                                            }
-                                                        >
-                                                            Buy used car
-                                                        </a>
-                                                        {renderBuyUsedCarMenu()}
-                                                    </li>
-                                                    <li className="tfcl-mega-menu">
-                                                        <Link
-                                                            to="/sell-car"
-                                                            // onClick={(e) =>
-                                                            //     e.preventDefault()
-                                                            // }
-                                                        >
-                                                            Sell car
-                                                        </Link>
-                                                        {/* <ul>
+      <>
+        <header
+          className={`main-header style2 ${isHeaderFixed ? "is-fixed" : ""} ${
+            isHeaderSmall ? "is-small" : ""
+          }`}
+        >
+          {/* Header Lower */}
+          <div className="header-lower" ref={headerLowerRef}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="inner-container flex justify-space align-center">
+                    {/* Logo Box */}
+                    <div className="logo-box flex">
+                      <div className="logo">
+                        <Link to="/">
+                          <img
+                            className="lazyload img-none"
+                            data-src="assets/images/logo/logo.png"
+                            src="assets/images/logo/logo@2x.png"
+                            alt="Gadi Dikhao Logo"
+                            width={325}
+                            height={40}
+                          />
+                          <img
+                            className="lazyload img-is-fixed"
+                            data-src="assets/images/logo/logo@2x.png"
+                            src="assets/images/logo/logo@2x.png"
+                            alt="Gadi Dikhao Logo"
+                            width={225}
+                            height={40}
+                          />
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="nav-outer flex align-center">
+                      {/* Main Menu */}
+                      <nav className="main-menu show navbar-expand-md">
+                        <div
+                          className="navbar-collapse collapse clearfix"
+                          id="navbarSupportedContent"
+                        >
+                          <ul className="navigation clearfix">
+                            <li className="current">
+                              <Link to="/">Home</Link>
+                            </li>
+                            <li className="tfcl-mega-menu">
+                              <Link to="/carlisting">Buy used car</Link>
+                            </li>
+                            <li className="tfcl-mega-menu">
+                              <Link
+                                to="/sell-car"
+                                // onClick={(e) =>
+                                //     e.preventDefault()
+                                // }
+                              >
+                                Sell car
+                              </Link>
+                              {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -363,17 +355,12 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                                                    </li>
-                                                    <li className="tfcl-mega-menu">
-                                                        <a
-                                                            href="#"
-                                                            onClick={(e) =>
-                                                                e.preventDefault()
-                                                            }
-                                                        >
-                                                            Car finance
-                                                        </a>
-                                                        {/* <ul>
+                            </li>
+                            <li className="tfcl-mega-menu">
+                              <a href="#" onClick={(e) => e.preventDefault()}>
+                                Car finance
+                              </a>
+                              {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -401,17 +388,12 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                                                    </li>
-                                                    <li className="tfcl-mega-menu">
-                                                        <a
-                                                            href="#"
-                                                            onClick={(e) =>
-                                                                e.preventDefault()
-                                                            }
-                                                        >
-                                                            New cars
-                                                        </a>
-                                                        {/* <ul>
+                            </li>
+                            <li className="tfcl-mega-menu">
+                              <a href="#" onClick={(e) => e.preventDefault()}>
+                                New cars
+                              </a>
+                              {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -438,17 +420,12 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                                                    </li>
-                                                    <li className="tfcl-mega-menu">
-                                                        <a
-                                                            href="#"
-                                                            onClick={(e) =>
-                                                                e.preventDefault()
-                                                            }
-                                                        >
-                                                            Car services
-                                                        </a>
-                                                        {/* <ul>
+                            </li>
+                            <li className="tfcl-mega-menu">
+                              <a href="#" onClick={(e) => e.preventDefault()}>
+                                Car services
+                              </a>
+                              {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -476,355 +453,295 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </nav>
-                                        {/* Main Menu End */}
-                                    </div>
-                                    <div className="header-account flex align-center">
-                                        <div className="flat-bt-top">
-                                            <a
-                                                className="sc-button"
-                                                href="tel:+1234567890"
-                                            >
-                                                <div className="icon">
-                                                    <img
-                                                        src="assets/images/icons/phone.png"
-                                                        alt="phone icon"
-                                                    />
-                                                </div>
-                                                <span>Call Us</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="mobile-nav-toggler mobile-button"
-                                        onClick={toggleMobileMenu}
-                                    >
-                                        <span />
-                                    </div>
-                                </div>
-                            </div>
+                            </li>
+                          </ul>
                         </div>
+                      </nav>
+                      {/* Main Menu End */}
                     </div>
+                    <div className="header-account flex align-center">
+                      <div className="flat-bt-top">
+                        <a className="sc-button" href="tel:+1234567890">
+                          <div className="icon">
+                            <img
+                              src="assets/images/icons/phone.png"
+                              alt="phone icon"
+                            />
+                          </div>
+                          <span>Call Us</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div
+                      className="mobile-nav-toggler mobile-button"
+                      onClick={toggleMobileMenu}
+                    >
+                      <span />
+                    </div>
+                  </div>
                 </div>
-                {/* End Header Lower */}
+              </div>
+            </div>
+          </div>
+          {/* End Header Lower */}
 
-                {/* Mobile Menu */}
-                <div className="close-btn" onClick={toggleMobileMenu}>
-                    <span className="icon flaticon-cancel-1" />
-                </div>
-                <div
-                    className={`mobile-menu ${
-                        isMobileMenuVisible ? "mobile-menu-visible" : ""
-                    }`}
-                >
-                    <div className="menu-backdrop" onClick={toggleMobileMenu} />
-                    <nav className="menu-box">
-                        <div className="nav-logo">
-                            <Link to="/">
-                                <img
-                                    className="lazyload"
-                                    data-src="assets/images/logo/logo@2x.png"
-                                    src="assets/images/logo/logo@2x.png"
-                                    alt="Gadi Dikhao Logo"
-                                    width={197}
-                                    height={48}
-                                />
-                            </Link>
-                        </div>
-                        <div className="bottom-canvas">
-                            {/* <div className="login-box flex align-center">
+          {/* Mobile Menu */}
+          <div className="close-btn" onClick={toggleMobileMenu}>
+            <span className="icon flaticon-cancel-1" />
+          </div>
+          <div
+            className={`mobile-menu ${
+              isMobileMenuVisible ? "mobile-menu-visible" : ""
+            }`}
+          >
+            <div className="menu-backdrop" onClick={toggleMobileMenu} />
+            <nav className="menu-box">
+              <div className="nav-logo">
+                <Link to="/">
+                  <img
+                    className="lazyload"
+                    data-src="assets/images/logo/logo@2x.png"
+                    src="assets/images/logo/logo@2x.png"
+                    alt="Gadi Dikhao Logo"
+                    width={197}
+                    height={48}
+                  />
+                </Link>
+              </div>
+              <div className="bottom-canvas">
+                {/* <div className="login-box flex align-center">
                                 <i className="icon-autodeal-user fs-20" />
                                 <Link to="/login" className="fw-7 font-2">
                                     Login
                                 </Link>
                             </div> */}
-                            <div className="menu-outer">
-                                <ul className="navigation clearfix">
-                                    <li className="current">
-                                        <Link to="/" onClick={toggleMobileMenu}>
-                                            Home
-                                        </Link>
-                                    </li>
-                                    <li className="tfcl-mega-menu dropdown2">
-                                        <a
-                                            href="#"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                toggleDropdown(1);
-                                            }}
-                                        >
-                                            Buy used car
-                                        </a>
-                                        {renderBuyUsedCarMenu(true)}
-                                    </li>
-                                    <li className="tfcl-mega-menu dropdown2">
-                                        <Link
-                                            to="/sell-car"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                toggleDropdown(2);
-                                            }}
-                                        >
-                                            Sell car
-                                        </Link>
-                                        <ul
-                                            style={{
-                                                display: openDropdowns["1-2"]
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        >
-                                            <li className="dropdown2">
-                                                <Link
-                                                    to="/sell-car"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        toggleDropdown(1, 2);
-                                                    }}
-                                                >
-                                                    Sell car
-                                                </Link>
-                                                <ul
-                                                    style={{
-                                                        display: openDropdowns[
-                                                            "2-1"
-                                                        ]
-                                                            ? "block"
-                                                            : "none",
-                                                    }}
-                                                >
-                                                    <li>
-                                                        <Link
-                                                            to="/used-car-valuation"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Used car valuation
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/sell-car-delhi"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Sell car in Delhi
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/sell-car-mumbai"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Sell car in Mumbai
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/sell-car-bangalore"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Sell car in
-                                                            Bangalore
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="tfcl-mega-menu dropdown2">
-                                        <a
-                                            href="#"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                toggleDropdown(3);
-                                            }}
-                                        >
-                                            Car finance
-                                        </a>
-                                        <ul
-                                            style={{
-                                                display: openDropdowns["1-3"]
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        >
-                                            <li className="dropdown2">
-                                                <a
-                                                    href="#"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        toggleDropdown(1, 2);
-                                                    }}
-                                                >
-                                                    Car finance
-                                                </a>
-                                                <ul
-                                                    style={{
-                                                        display: openDropdowns[
-                                                            "2-1"
-                                                        ]
-                                                            ? "block"
-                                                            : "none",
-                                                    }}
-                                                >
-                                                    <li>
-                                                        <Link
-                                                            to="/car-loan"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Car loan
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/emi-calculator"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            EMI Calculator
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="tfcl-mega-menu dropdown2">
-                                        <a
-                                            href="#"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                toggleDropdown(4);
-                                            }}
-                                        >
-                                            New cars
-                                        </a>
-                                        <ul
-                                            style={{
-                                                display: openDropdowns["1-4"]
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        >
-                                            <li className="dropdown2">
-                                                <a
-                                                    href="#"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        toggleDropdown(1, 2);
-                                                    }}
-                                                >
-                                                    New cars
-                                                </a>
-                                                <ul
-                                                    style={{
-                                                        display: openDropdowns[
-                                                            "2-1"
-                                                        ]
-                                                            ? "block"
-                                                            : "none",
-                                                    }}
-                                                >
-                                                    <li>
-                                                        <Link
-                                                            to="/new-cars-hyundai"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Hyundai
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/new-cars-maruti"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Maruti Suzuki
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="tfcl-mega-menu dropdown2">
-                                        <a
-                                            href="#"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                toggleDropdown(5);
-                                            }}
-                                        >
-                                            Car services
-                                        </a>
-                                        <ul
-                                            style={{
-                                                display: openDropdowns["1-5"]
-                                                    ? "block"
-                                                    : "none",
-                                            }}
-                                        >
-                                            <li className="dropdown2">
-                                                <a
-                                                    href="#"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        toggleDropdown(1, 2);
-                                                    }}
-                                                >
-                                                    Car services
-                                                </a>
-                                                <ul
-                                                    style={{
-                                                        display: openDropdowns[
-                                                            "2-1"
-                                                        ]
-                                                            ? "block"
-                                                            : "none",
-                                                    }}
-                                                >
-                                                    <li>
-                                                        <Link
-                                                            to="/car-insurance"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Car insurance
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/car-servicing"
-                                                            onClick={
-                                                                toggleMobileMenu
-                                                            }
-                                                        >
-                                                            Car servicing
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="button-mobi-sell">
-                                {/* <Link
+                <div className="menu-outer">
+                  <ul className="navigation clearfix">
+                    <li className="current">
+                      <Link to="/" onClick={toggleMobileMenu}>
+                        Home
+                      </Link>
+                    </li>
+                    <li className="tfcl-mega-menu">
+                      <Link to="/carlisting">Buy used car</Link>
+                    </li>
+                    <li className="tfcl-mega-menu">
+                      <Link
+                        to="/sell-car"
+                        // onClick={(e) => {
+                        //   e.preventDefault();
+                        //   toggleDropdown(2);
+                        // }}
+                      >
+                        Sell car
+                      </Link>
+                      {/* <ul
+                        style={{
+                          display: openDropdowns["1-2"] ? "block" : "none",
+                        }}
+                      >
+                        <li className="dropdown2">
+                          <Link
+                            to="/sell-car"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toggleDropdown(1, 2);
+                            }}
+                          >
+                            Sell car
+                          </Link>
+                          <ul
+                            style={{
+                              display: openDropdowns["2-1"] ? "block" : "none",
+                            }}
+                          >
+                            <li>
+                              <Link
+                                to="/used-car-valuation"
+                                onClick={toggleMobileMenu}
+                              >
+                                Used car valuation
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/sell-car-delhi"
+                                onClick={toggleMobileMenu}
+                              >
+                                Sell car in Delhi
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/sell-car-mumbai"
+                                onClick={toggleMobileMenu}
+                              >
+                                Sell car in Mumbai
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/sell-car-bangalore"
+                                onClick={toggleMobileMenu}
+                              >
+                                Sell car in Bangalore
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul> */}
+                    </li>
+                    <li className="tfcl-mega-menu">
+                      <a
+                        href="#"
+                        // onClick={(e) => {
+                        //   e.preventDefault();
+                        //   toggleDropdown(3);
+                        // }}
+                      >
+                        Car finance
+                      </a>
+                      {/* <ul
+                        style={{
+                          display: openDropdowns["1-3"] ? "block" : "none",
+                        }}
+                      >
+                        <li className="dropdown2">
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toggleDropdown(1, 2);
+                            }}
+                          >
+                            Car finance
+                          </a>
+                          <ul
+                            style={{
+                              display: openDropdowns["2-1"] ? "block" : "none",
+                            }}
+                          >
+                            <li>
+                              <Link to="/car-loan" onClick={toggleMobileMenu}>
+                                Car loan
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/emi-calculator"
+                                onClick={toggleMobileMenu}
+                              >
+                                EMI Calculator
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul> */}
+                    </li>
+                    <li className="tfcl-mega-menu">
+                      <a
+                        href="#"
+                        // onClick={(e) => {
+                        //   e.preventDefault();
+                        //   toggleDropdown(4);
+                        // }}
+                      >
+                        New cars
+                      </a>
+                      {/* <ul
+                        style={{
+                          display: openDropdowns["1-4"] ? "block" : "none",
+                        }}
+                      >
+                        <li className="dropdown2">
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toggleDropdown(1, 2);
+                            }}
+                          >
+                            New cars
+                          </a>
+                          <ul
+                            style={{
+                              display: openDropdowns["2-1"] ? "block" : "none",
+                            }}
+                          >
+                            <li>
+                              <Link
+                                to="/new-cars-hyundai"
+                                onClick={toggleMobileMenu}
+                              >
+                                Hyundai
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/new-cars-maruti"
+                                onClick={toggleMobileMenu}
+                              >
+                                Maruti Suzuki
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul> */}
+                    </li>
+                    <li className="tfcl-mega-menu">
+                      <a
+                        href="#"
+                        // onClick={(e) => {
+                        //   e.preventDefault();
+                        //   toggleDropdown(5);
+                        // }}
+                      >
+                        Car services
+                      </a>
+                      {/* <ul
+                        style={{
+                          display: openDropdowns["1-5"] ? "block" : "none",
+                        }}
+                      >
+                        <li className="dropdown2">
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toggleDropdown(1, 2);
+                            }}
+                          >
+                            Car services
+                          </a>
+                          <ul
+                            style={{
+                              display: openDropdowns["2-1"] ? "block" : "none",
+                            }}
+                          >
+                            <li>
+                              <Link
+                                to="/car-insurance"
+                                onClick={toggleMobileMenu}
+                              >
+                                Car insurance
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/car-servicing"
+                                onClick={toggleMobileMenu}
+                              >
+                                Car servicing
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul> */}
+                    </li>
+                  </ul>
+                </div>
+                <div className="button-mobi-sell">
+                  {/* <Link
                                     className="sc-button btn-icon center"
                                     to="/add-listing"
                                     onClick={toggleMobileMenu}
@@ -863,13 +780,13 @@ function Header() {
                                     </svg>
                                     <span>Add listing</span>
                                 </Link> */}
-                            </div>
-                        </div>
-                    </nav>
                 </div>
-                {/* End Mobile Menu */}
-            </header>
-        </>
+              </div>
+            </nav>
+          </div>
+          {/* End Mobile Menu */}
+        </header>
+      </>
     );
 }
 

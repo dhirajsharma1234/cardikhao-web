@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@font-face {
+  font-family: 'bebas_neueregular';
+  src: url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_regular-webfont.eot");
+  src: url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_regular-webfont.woff2") format("woff2"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_regular-webfont.woff") format("woff"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_regular-webfont.ttf") format("truetype"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_regular-webfont.svg#bebas_neueregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bebas_neuebold';
+  src: url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_bold-webfont.eot");
+  src: url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_bold-webfont.woff2") format("woff2"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_bold-webfont.woff") format("woff"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_bold-webfont.ttf") format("truetype"), 
+       url("https://dl.dropboxusercontent.com/u/81135676/bebasneue_bold-webfont.svg#bebas_neuebold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.coming-soon-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle, #000000, #3e3c3c);
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+#coming-soon-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.coming-soon-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  z-index: 101;
+}
+
+.coming-soon-title {
+  font-family: "bebas_neuebold", "Arial", sans-serif;
+  font-size: 5.625em;
+  margin: 0;
+  letter-spacing: 2px;
+  text-align: center;
+  color: white;
+}
+
+.coming-soon-separator-container {
+  width: 100%;
+  display: block;
+  text-align: center;
+  position: relative;
+  margin: 12px 0;
+}
+
+.coming-soon-separator-container:before, 
+.coming-soon-separator-container:after {
+  display: table;
+  content: "";
+}
+
+.coming-soon-separator-container:after {
+  clear: both;
+}
+
+.coming-soon-separator {
+  color: white;
+  margin: 0 auto 1em;
+  width: 11em;
+}
+
+.coming-soon-line-separator svg {
+  width: 30px;
+  height: 20px;
+}
+
+.coming-soon-line-separator:before, 
+.coming-soon-line-separator:after {
+  display: block;
+  width: 40%;
+  content: " ";
+  margin-top: 14px;
+  border: 1px solid white;
+}
+
+.coming-soon-line-separator:before {
+  float: left;
+}
+
+.coming-soon-line-separator:after {
+  float: right;
+}
+
+.coming-soon-subtitle {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+  line-height: 2;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+  color: #fff;
+}
+
+.coming-soon-subtitle a {
+  text-decoration: underline;
+}
