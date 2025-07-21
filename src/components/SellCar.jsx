@@ -15,8 +15,7 @@ function SellCar() {
                             <div className="col-md-6">
                                 <div className="hero-text">
                                     <h2>
-                                        Sell your car
-                                        <br />
+                                        Sell your car <br />
                                         in minutes
                                     </h2>
                                     <span>

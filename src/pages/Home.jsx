@@ -20,36 +20,36 @@ import Loader from "../components/Loader";
 
 // Constants for static data
 const BANNER_CARDS = [
-  {
-    title: "Buy used car",
-    offer: "Up To 20% OFF",
-    image: "assets/images/services/service-1.png",
-    ariaLabel: "Buy used car with up to 20% off",
-    offerBg: "var(--orange-50)",
-    offerColor: "var(--orange-500)",
-    to: "/carlisting",
-  },
-  {
-    title: "Get loans",
-    description: "For cars, personal needs & more.",
-    image: "assets/images/services/service-5.png",
-    ariaLabel: "Get loans for cars and personal needs",
-    to: "/car-loan",
-  },
-  {
-    title: "Get insured",
-    description: "For your car, health & life.",
-    image: "assets/images/services/service-7.png",
-    ariaLabel: "Get insured for your car, health and life",
-    to: "/car-insurance",
-  },
-  {
-    title: "Sell car",
-    description: "15,000+ buyer network.",
-    image: "assets/images/services/service-3.png",
-    ariaLabel: "Sell car with 15,000+ buyer network",
-    to: "/sell-car",
-  },
+    {
+        title: "Buy used car",
+        offer: "Up To 20% OFF",
+        image: "assets/images/services/service-1.png",
+        ariaLabel: "Buy used car with up to 20% off",
+        offerBg: "var(--orange-50)",
+        offerColor: "var(--orange-500)",
+        to: "/carlisting",
+    },
+    {
+        title: "Sell scrap car",
+        description: "For cars, personal needs & more.",
+        image: "assets/images/services/service-5.png",
+        ariaLabel: "Get loans for cars and personal needs",
+        to: "/sell-car",
+    },
+    {
+        title: "Get insured",
+        description: "For your car, health & life.",
+        image: "assets/images/services/service-7.png",
+        ariaLabel: "Get insured for your car, health and life",
+        to: "/car-insurance",
+    },
+    {
+        title: "Sell car",
+        description: "15,000+ buyer network.",
+        image: "assets/images/services/service-3.png",
+        ariaLabel: "Sell car with 15,000+ buyer network",
+        to: "/sell-car",
+    },
 ];
 
 const SERVICE_ITEMS = [
