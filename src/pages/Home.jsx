@@ -30,7 +30,7 @@ const BANNER_CARDS = [
         to: "/carlisting",
     },
     {
-        title: "Sell scrap car",
+        title: "scrap your car",
         description: "For cars, personal needs & more.",
         image: "assets/images/services/service-5.png",
         ariaLabel: "Get loans for cars and personal needs",
@@ -637,7 +637,7 @@ function Home() {
                                                 style={{ color: "transparent" }}
                                                 src={
                                                     brand.logo
-                                                        ? `https://cardikhao-production.up.railway.app/uploads/brands/${brand.logo}`
+                                                        ? `http://82.112.234.206:8000/uploads/brands/${brand.logo}`
                                                         : ""
                                                 }
                                             />
@@ -745,13 +745,13 @@ function Home() {
                                                                 data-src={
                                                                     car
                                                                         .images?.[0]
-                                                                        ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
+                                                                        ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
                                                                         : "assets/images/placeholder-car.jpg"
                                                                 }
                                                                 src={
                                                                     car
                                                                         .images?.[0]
-                                                                        ? `https://cardikhao-production.up.railway.app/uploads/cars/${car.images[0]}`
+                                                                        ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
                                                                         : "assets/images/placeholder-car.jpg"
                                                                 }
                                                                 alt={`${car.brand.name} ${car.modelName.name}`}

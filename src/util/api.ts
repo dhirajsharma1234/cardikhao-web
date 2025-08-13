@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const URL = "https://cardikhao-production.up.railway.app/api";
+const URL = "http://82.112.234.206:8000/api";
 
 export const fetchBrands = async ({ page = 1, limit = 8 } = {}) => {
     const res = await axios.get(`${URL}/brand/all`, {
@@ -39,12 +39,9 @@ export const fetchAllCars = async ({
         ...(maxPrice && { maxPrice }),
     };
 
-    const res = await axios.get(
-        `https://cardikhao-production.up.railway.app/api/car/all`,
-        {
-            params,
-        }
-    );
+    const res = await axios.get(`http://82.112.234.206:8000/api/car/all`, {
+        params,
+    });
     return res.data;
 };
 

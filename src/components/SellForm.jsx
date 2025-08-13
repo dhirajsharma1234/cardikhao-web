@@ -77,7 +77,7 @@ function SellForm() {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    "https://cardikhao-production.up.railway.app/api/brand/all?page=1&limit=50"
+                    "http://82.112.234.206:8000/api/brand/all?page=1&limit=50"
                 );
                 setBrands(response.data.data);
             } catch (err) {
@@ -198,7 +198,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "https://cardikhao-production.up.railway.app/api/sell/car",
+                "http://82.112.234.206:8000/api/sell/car",
                 formDataToSend,
                 config
             );
@@ -278,7 +278,7 @@ function SellForm() {
                                     }}
                                 >
                                     <img
-                                        src={`https://cardikhao-production.up.railway.app/uploads/brands/${brand.logo}`}
+                                        src={`http://82.112.234.206:8000/uploads/brands/${brand.logo}`}
                                         alt={brand.name}
                                         className="brand-logo"
                                         onError={(e) => {

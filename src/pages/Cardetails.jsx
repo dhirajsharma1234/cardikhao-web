@@ -19,14 +19,14 @@ import { formatPriceINR } from "../util/priceConversion";
 // API functions
 const fetchCarById = async (carId) => {
   const res = await axios.get(
-    `https://cardikhao-production.up.railway.app/api/car/${carId}`
+    `http://82.112.234.206:8000/api/car/${carId}`
   );
   return res.data;
 };
 
 const submitEnquiry = async (payload) => {
   const response = await axios.post(
-    "https://cardikhao-production.up.railway.app/api/enquiry",
+    "http://82.112.234.206:8000/api/enquiry",
     payload,
     {
       headers: {
@@ -255,7 +255,7 @@ function CarDetails() {
   });
 
   const images = car?.images?.map(
-    (val) => `https://cardikhao-production.up.railway.app/uploads/cars/${val}`
+    (val) => `http://82.112.234.206:8000/uploads/cars/${val}`
   );
 
   const handleSubmit = useCallback(
@@ -337,7 +337,7 @@ function CarDetails() {
                       <div className="image-list-details">
                         <div className="image" style={{ cursor: "default" }}>
                           <img
-                            src="https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png"
+                            src="http://82.112.234.206:8000/uploads/cars/car-not-found.png"
                             alt="Car Not Found"
                             className="lazyload"
                             loading="lazy"
@@ -599,13 +599,13 @@ function CarDetails() {
                                   className="lazyload"
                                   data-src={
                                     similarCar.images?.[0]
-                                      ? `https://cardikhao-production.up.railway.app/uploads/cars/${similarCar.images[0]}`
-                                      : `https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png`
+                                      ? `http://82.112.234.206:8000/uploads/cars/${similarCar.images[0]}`
+                                      : `http://82.112.234.206:8000/uploads/cars/car-not-found.png`
                                   }
                                   src={
                                     similarCar.images?.[0]
-                                      ? `https://cardikhao-production.up.railway.app/uploads/cars/${similarCar.images[0]}`
-                                      : `https://cardikhao-production.up.railway.app/uploads/cars/car-not-found.png`
+                                      ? `http://82.112.234.206:8000/uploads/cars/${similarCar.images[0]}`
+                                      : `http://82.112.234.206:8000/uploads/cars/car-not-found.png`
                                   }
                                   alt={similarCar?.modelName?.name}
                                   loading="lazy"
