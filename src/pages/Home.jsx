@@ -715,129 +715,149 @@ function Home() {
                                     clickable: true,
                                 }}
                             >
-                                {carsData.cars.map((car) => (
-                                    <SwiperSlide
-                                        key={car._id}
-                                        className="cars-slide"
-                                    >
-                                        <div className="cars-card">
-                                            <Link
-                                                to={`/car/${car._id}`}
-                                                className="cars-card-link"
-                                            >
-                                                <div className="box-car-list hv-one">
-                                                    <div className="image-group relative ">
-                                                        <div className="top flex-two">
-                                                            <ul className="d-flex gap-8">
-                                                                {car?.isFeatured && (
-                                                                    <li className="flag-tag success">
-                                                                        Featured
-                                                                    </li>
-                                                                )}
-                                                            </ul>
-                                                            <div className="year flag-tag">
-                                                                {car.year}
+                                {carsData.cars.length > 0 &&
+                                    carsData.cars.map((car) => (
+                                        <SwiperSlide
+                                            key={car._id}
+                                            className="cars-slide"
+                                        >
+                                            <div className="cars-card">
+                                                <Link
+                                                    to={`/car/${car._id}`}
+                                                    className="cars-card-link"
+                                                >
+                                                    <div className="box-car-list hv-one">
+                                                        <div className="image-group relative ">
+                                                            <div className="top flex-two">
+                                                                <ul className="d-flex gap-8">
+                                                                    {car?.isFeatured && (
+                                                                        <li className="flag-tag success">
+                                                                            Featured
+                                                                        </li>
+                                                                    )}
+                                                                </ul>
+                                                                <div className="year flag-tag">
+                                                                    {car.year}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="img-style">
-                                                            <img
-                                                                className="lazyload"
-                                                                data-src={
-                                                                    car
-                                                                        .images?.[0]
-                                                                        ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
-                                                                        : "assets/images/placeholder-car.jpg"
-                                                                }
-                                                                src={
-                                                                    car
-                                                                        .images?.[0]
-                                                                        ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
-                                                                        : "assets/images/placeholder-car.jpg"
-                                                                }
-                                                                alt={`${car.brand.name} ${car.modelName.name}`}
-                                                                loading="lazy"
-                                                                style={{
-                                                                    width: "100%",
-                                                                    height: "206px",
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="content">
-                                                        <div className="text-address">
-                                                            <p className="text-color-3 font">
-                                                                {car.bodyType}
-                                                            </p>
-                                                        </div>
-                                                        <h5 className="link-style-1">
-                                                            <a href="#">
-                                                                {car.year}{" "}
-                                                                {car.brand.name}{" "}
-                                                                {
-                                                                    car
-                                                                        .modelName
-                                                                        .name
-                                                                }
-                                                            </a>
-                                                        </h5>
-                                                        <div className="icon-box flex flex-wrap">
-                                                            <div className="icons flex-three">
-                                                                <i className="icon-autodeal-km1" />
-                                                                <span>
-                                                                    {car.kmRun}{" "}
-                                                                    km
-                                                                </span>
-                                                            </div>
-                                                            <div className="icons flex-three">
-                                                                <i className="icon-autodeal-diesel" />
-                                                                <span>
-                                                                    {
-                                                                        car.fuelType
-                                                                    }
-                                                                </span>
-                                                            </div>
-                                                            <div className="icons flex-three">
-                                                                <i className="icon-autodeal-automatic" />
-                                                                <span>
-                                                                    {
-                                                                        car.transmission
-                                                                    }
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="money fs-20 fw-5 lh-25 text-color-3">
-                                                            ₹
-                                                            {(
-                                                                car.price /
-                                                                100000
-                                                            ).toFixed(2)}{" "}
-                                                            lakh
-                                                        </div>
-                                                        <div className="days-box flex justify-space align-center">
-                                                            <div className="img-author">
+                                                            <div className="img-style">
                                                                 <img
                                                                     className="lazyload"
-                                                                    data-src="assets/images/logo/logo-circle.png"
-                                                                    src="assets/images/logo/logo-circle.png"
-                                                                    alt="image"
+                                                                    data-src={
+                                                                        car
+                                                                            .images?.[0]
+                                                                            ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
+                                                                            : "assets/images/placeholder-car.jpg"
+                                                                    }
+                                                                    src={
+                                                                        car
+                                                                            .images?.[0]
+                                                                            ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
+                                                                            : "assets/images/placeholder-car.jpg"
+                                                                    }
+                                                                    alt={`${
+                                                                        car
+                                                                            ?.brand
+                                                                            ?.name ||
+                                                                        ""
+                                                                    } ${
+                                                                        car
+                                                                            ?.modelName
+                                                                            ?.name ||
+                                                                        ""
+                                                                    }`}
+                                                                    loading="lazy"
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        height: "206px",
+                                                                    }}
                                                                 />
-                                                                <span className="font text-color-2 fw-5">
-                                                                    {car.color}
-                                                                </span>
                                                             </div>
-                                                            <a
-                                                                href="listing-detail-v1.html"
-                                                                className="view-car"
-                                                            >
-                                                                View car
-                                                            </a>
+                                                        </div>
+                                                        <div className="content">
+                                                            <div className="text-address">
+                                                                <p className="text-color-3 font">
+                                                                    {
+                                                                        car.bodyType
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                            <h5 className="link-style-1">
+                                                                <a href="#">
+                                                                    {car.year}{" "}
+                                                                    {car?.brand
+                                                                        ?.name ||
+                                                                        " "}{" "}
+                                                                    {car
+                                                                        ?.modelName
+                                                                        ?.name ||
+                                                                        ""}
+                                                                </a>
+                                                            </h5>
+                                                            <div className="icon-box flex flex-wrap">
+                                                                <div className="icons flex-three">
+                                                                    <i className="icon-autodeal-km1" />
+                                                                    <span>
+                                                                        {
+                                                                            car.kmRun
+                                                                        }{" "}
+                                                                        km
+                                                                    </span>
+                                                                </div>
+                                                                <div className="icons flex-three">
+                                                                    <i className="icon-autodeal-diesel" />
+                                                                    <span>
+                                                                        {
+                                                                            car.fuelType
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                                <div className="icons flex-three">
+                                                                    <i className="icon-autodeal-automatic" />
+                                                                    <span>
+                                                                        {
+                                                                            car.transmission
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="money fs-20 fw-5 lh-25 text-color-3">
+                                                                ₹
+                                                                {(
+                                                                    car.price /
+                                                                    100000
+                                                                ).toFixed(
+                                                                    2
+                                                                )}{" "}
+                                                                lakh
+                                                            </div>
+                                                            <div className="days-box flex justify-space align-center">
+                                                                <div className="img-author">
+                                                                    <img
+                                                                        className="lazyload"
+                                                                        data-src="assets/images/logo/logo-circle.png"
+                                                                        src="assets/images/logo/logo-circle.png"
+                                                                        alt="image"
+                                                                    />
+                                                                    <span className="font text-color-2 fw-5">
+                                                                        {
+                                                                            car.color
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                                <a
+                                                                    href="listing-detail-v1.html"
+                                                                    className="view-car"
+                                                                >
+                                                                    View car
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
+                                                </Link>
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
                             </Swiper>
                             <button
                                 type="button"
