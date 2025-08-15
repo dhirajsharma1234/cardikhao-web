@@ -77,7 +77,7 @@ function SellForm() {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    "http://api.gadidikhao.com/api/brand/all?page=1&limit=50"
+                    "https://api.gadidikhao.com/api/brand/all?page=1&limit=50"
                 );
                 setBrands(response.data.data);
             } catch (err) {
@@ -198,7 +198,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "http://api.gadidikhao.com/api/sell/car",
+                "https://api.gadidikhao.com/api/sell/car",
                 formDataToSend,
                 config
             );
@@ -278,7 +278,7 @@ function SellForm() {
                                     }}
                                 >
                                     <img
-                                        src={`http://api.gadidikhao.com/uploads/brands/${brand.logo}`}
+                                        src={`https://api.gadidikhao.com/uploads/brands/${brand.logo}`}
                                         alt={brand.name}
                                         className="brand-logo"
                                         onError={(e) => {

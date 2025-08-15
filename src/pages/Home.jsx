@@ -637,7 +637,7 @@ function Home() {
                                                 style={{ color: "transparent" }}
                                                 src={
                                                     brand.logo
-                                                        ? `http://api.gadidikhao.com/uploads/brands/${brand.logo}`
+                                                        ? `https://api.gadidikhao.com/uploads/brands/${brand.logo}`
                                                         : ""
                                                 }
                                             />
@@ -746,13 +746,13 @@ function Home() {
                                                                     data-src={
                                                                         car
                                                                             .images?.[0]
-                                                                            ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
+                                                                            ? `https://api.gadidikhao.com/uploads/cars/${car.images[0]}`
                                                                             : "assets/images/placeholder-car.jpg"
                                                                     }
                                                                     src={
                                                                         car
                                                                             .images?.[0]
-                                                                            ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
+                                                                            ? `https://api.gadidikhao.com/uploads/cars/${car.images[0]}`
                                                                             : "assets/images/placeholder-car.jpg"
                                                                     }
                                                                     alt={`${

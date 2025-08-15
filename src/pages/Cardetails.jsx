@@ -18,13 +18,13 @@ import { formatPriceINR } from "../util/priceConversion";
 
 // API functions
 const fetchCarById = async (carId) => {
-    const res = await axios.get(`http://api.gadidikhao.com/api/car/${carId}`);
+    const res = await axios.get(`https://api.gadidikhao.com/api/car/${carId}`);
     return res.data;
 };
 
 const submitEnquiry = async (payload) => {
     const response = await axios.post(
-        "http://api.gadidikhao.com/api/enquiry",
+        "https://api.gadidikhao.com/api/enquiry",
         payload,
         {
             headers: {
@@ -267,7 +267,7 @@ function CarDetails() {
     });
 
     const images = car?.images?.map(
-        (val) => `http://api.gadidikhao.com/uploads/cars/${val}`
+        (val) => `https://api.gadidikhao.com/uploads/cars/${val}`
     );
 
     const handleSubmit = useCallback(
@@ -358,7 +358,7 @@ function CarDetails() {
                                                     }}
                                                 >
                                                     <img
-                                                        src="http://api.gadidikhao.com/uploads/cars/car-not-found.png"
+                                                        src="https://api.gadidikhao.com/uploads/cars/car-not-found.png"
                                                         alt="Car Not Found"
                                                         className="lazyload"
                                                         loading="lazy"
@@ -683,14 +683,14 @@ function CarDetails() {
                                                                     data-src={
                                                                         similarCar
                                                                             .images?.[0]
-                                                                            ? `http://api.gadidikhao.com/uploads/cars/${similarCar.images[0]}`
-                                                                            : `http://api.gadidikhao.com/uploads/cars/car-not-found.png`
+                                                                            ? `https://api.gadidikhao.com/uploads/cars/${similarCar.images[0]}`
+                                                                            : `https://api.gadidikhao.com/uploads/cars/car-not-found.png`
                                                                     }
                                                                     src={
                                                                         similarCar
                                                                             .images?.[0]
-                                                                            ? `http://api.gadidikhao.com/uploads/cars/${similarCar.images[0]}`
-                                                                            : `http://api.gadidikhao.com/uploads/cars/car-not-found.png`
+                                                                            ? `https://api.gadidikhao.com/uploads/cars/${similarCar.images[0]}`
+                                                                            : `https://api.gadidikhao.com/uploads/cars/car-not-found.png`
                                                                     }
                                                                     alt={
                                                                         similarCar

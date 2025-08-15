@@ -7,7 +7,7 @@ function ContactUs() {
     const contactUsMutation = useMutation({
         mutationFn: async (formData) => {
             const response = await fetch(
-                "http://api.gadidikhao.com/api/enquiry/contactUs",
+                "https://api.gadidikhao.com/api/enquiry/contactUs",
                 {
                     method: "POST",
                     headers: {

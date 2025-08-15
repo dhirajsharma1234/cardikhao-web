@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const URL = "http://api.gadidikhao.com/api";
+const URL = "https://api.gadidikhao.com/api";
 
 export const fetchBrands = async ({ page = 1, limit = 8 } = {}) => {
     const res = await axios.get(`${URL}/brand/all`, {
@@ -39,7 +39,7 @@ export const fetchAllCars = async ({
         ...(maxPrice && { maxPrice }),
     };
 
-    const res = await axios.get(`http://api.gadidikhao.com/api/car/all`, {
+    const res = await axios.get(`https://api.gadidikhao.com/api/car/all`, {
         params,
     });
     return res.data;
