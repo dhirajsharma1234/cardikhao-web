@@ -76,7 +76,7 @@ function CarListing() {
         const fetchBrands = async () => {
             try {
                 const response = await axios.get(
-                    "http://82.112.234.206:8000/api/brand/all?page=1&limit=10"
+                    "http://api.gadidikhao.com/api/brand/all?page=1&limit=10"
                 );
                 setBrands(response?.data?.data || []);
             } catch (error) {
@@ -96,7 +96,7 @@ function CarListing() {
                     );
                     if (selectedBrand) {
                         const response = await axios.get(
-                            `http://82.112.234.206:8000/api/brand/model/${selectedBrand._id}`
+                            `http://api.gadidikhao.com/api/brand/model/${selectedBrand._id}`
                         );
                         setModels(response.data.data || []);
                     }
@@ -240,13 +240,13 @@ function CarListing() {
                                         className="lazyload"
                                         data-src={
                                             car.images?.[0]
-                                                ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
-                                                : "http://82.112.234.206:8000/uploads/cars/car-not-found.png"
+                                                ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
+                                                : "http://api.gadidikhao.com/uploads/cars/car-not-found.png"
                                         }
                                         src={
                                             car.images?.[0]
-                                                ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
-                                                : "http://82.112.234.206:8000/uploads/cars/car-not-found.png"
+                                                ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
+                                                : "http://api.gadidikhao.com/uploads/cars/car-not-found.png"
                                         }
                                         alt={`${car?.brand?.name} ${car?.modelName?.name}`}
                                         loading="lazy"

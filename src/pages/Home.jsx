@@ -622,13 +622,13 @@ function Home() {
                                         <Link
                                             key={brand._id}
                                             to={`/carlisting?brand=${
-                                                brand.name ||
-                                                brand.name.toLowerCase()
+                                                brand?.name ||
+                                                brand?.name.toLowerCase()
                                             }`}
                                             className="text-center brand-card"
                                         >
                                             <img
-                                                alt={brand.name}
+                                                alt={brand?.name}
                                                 // fetchpriority="high"
                                                 loading="lazy"
                                                 width={65}
@@ -637,7 +637,7 @@ function Home() {
                                                 style={{ color: "transparent" }}
                                                 src={
                                                     brand.logo
-                                                        ? `http://82.112.234.206:8000/uploads/brands/${brand.logo}`
+                                                        ? `http://api.gadidikhao.com/uploads/brands/${brand.logo}`
                                                         : ""
                                                 }
                                             />
@@ -746,13 +746,13 @@ function Home() {
                                                                     data-src={
                                                                         car
                                                                             .images?.[0]
-                                                                            ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
+                                                                            ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
                                                                             : "assets/images/placeholder-car.jpg"
                                                                     }
                                                                     src={
                                                                         car
                                                                             .images?.[0]
-                                                                            ? `http://82.112.234.206:8000/uploads/cars/${car.images[0]}`
+                                                                            ? `http://api.gadidikhao.com/uploads/cars/${car.images[0]}`
                                                                             : "assets/images/placeholder-car.jpg"
                                                                     }
                                                                     alt={`${
@@ -1485,101 +1485,6 @@ function Home() {
                         What motivates us
                     </h2>
                     <TestiMonial />
-                    {/* <div className="auto-news-slider-container">
-                        <Swiper
-                            modules={[Navigation, Pagination]}
-                            navigation={{
-                                prevEl: ".auto-news-prev-btn",
-                                nextEl: ".auto-news-next-btn",
-                            }}
-                            pagination={{
-                                el: ".auto-news-mobile-indicators",
-                                clickable: true,
-                            }}
-                            spaceBetween={24}
-                            slidesPerView={1.1}
-                            breakpoints={{
-                                640: { slidesPerView: 1.5 },
-                                768: { slidesPerView: 2 },
-                                1024: { slidesPerView: 3 },
-                            }}
-                            className="auto-news-slider-track"
-                        >
-                            {NEWS_ITEMS.map((news, index) => (
-                                <SwiperSlide key={index}>
-                                    <Link
-                                        to={news.to}
-                                        className="auto-news-slide"
-                                    >
-                                        <div className="auto-news-card">
-                                            <div className="auto-news-img-container">
-                                                <img
-                                                    src={news.image}
-                                                    alt={news.title}
-                                                    className="auto-news-img"
-                                                />
-                                            </div>
-                                            <div className="auto-news-content">
-                                                <p className="auto-news-category">
-                                                    {news.category}
-                                                </p>
-                                                <h2 className="auto-news-title">
-                                                    {news.title}
-                                                </h2>
-                                                <div className="auto-news-summary-container">
-                                                    <p className="auto-news-summary-label">
-                                                        Summary
-                                                    </p>
-                                                    <div className="auto-news-summary">
-                                                        {news.summary}
-                                                    </div>
-                                                    <span className="auto-news-read-more">
-                                                        Read more
-                                                    </span>
-                                                    <div className="auto-news-gradient-overlay" />
-                                                </div>
-                                                <div className="auto-news-footer">
-                                                    <div className="auto-news-author">
-                                                        <img
-                                                            src={news.authorImg}
-                                                            alt={news.author}
-                                                            className="auto-news-author-img"
-                                                        />
-                                                        <p className="auto-news-author-name">
-                                                            {news.author}
-                                                        </p>
-                                                    </div>
-                                                    <div className="auto-news-meta">
-                                                        <div className="auto-news-meta-item">
-                                                            {news.date}
-                                                        </div>
-                                                        <div className="auto-news-meta-item">
-                                                            {news.readTime}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                        <button
-                            type="button"
-                            className="auto-news-nav-btn auto-news-prev-btn"
-                            aria-label="Previous slide"
-                        >
-                            Previous
-                        </button>
-                        <button
-                            type="button"
-                            className="auto-news-nav-btn auto-news-next-btn"
-                            aria-label="Next slide"
-                        >
-                            Next
-                        </button>
-                        <div className="auto-news-mobile-indicators" />
-                    </div> */}
                 </div>
             </div>
 
