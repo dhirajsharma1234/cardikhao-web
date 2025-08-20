@@ -2,31 +2,40 @@
 
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 function ContactUs() {
     const contactUsMutation = useMutation({
         mutationFn: async (formData) => {
-            const response = await fetch(
-                "https://api.gadidikhao.com/api/enquiry/contactUs",
+            const payload = {
+                typeData: "enquiry", // Fixed type for contact us form
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                message: formData.message,
+            };
+
+            const response = await axios.post(
+                "http://localhost:8000/api/enquiry",
+                payload,
                 {
-                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(formData),
                 }
             );
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
+            return response.data;
         },
         onSuccess: () => {
-            alert("Message sent successfully!");
-            // You could reset the form here if needed
+            toast.success("Message sent successfully!");
         },
         onError: (error) => {
-            alert("Error sending message: " + error.message);
+            console.error("Error submitting contact form:", error);
+            toast.error(
+                "Error sending message: " +
+                    (error.response?.data?.message || error.message)
+            );
         },
     });
 
@@ -51,56 +60,6 @@ function ContactUs() {
                         </div>
                     </div>
                 </div>
-
-                {/* <div>
-          <div className="contact-card">
-            <div className="contact-map mb-4">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3508.279203528234!2d77.03689561166678!3d28.440998692650606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sCARS24%20Private%20Limited%20Tower%20C%2C%207th%20Floor%2C%20SAS%20Towers%2C%20Medanta%20the%20Medicity%2C%20Sector%2038%2C%20Gurugram%2C%20Haryana%20122001!5e0!3m2!1sen!2sin!4v1728027650472!5m2!1sen!2sin"
-                width="100%"
-                height={259}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-            <div className="contact-info">
-              <div className="office-details">
-                <h3>Corporate office address</h3>
-                <p className="mb-0">
-                  Cars24 Services Private Limited, Tower C, 7th Floor, SAS
-                  Towers, Medanta the Medicity, Sector 38, Gurugram, Haryana
-                  122001
-                </p>
-              </div>
-              <div className="email-wrapper">
-                <div className="email-section">
-                  <h3>Customer support</h3>
-                  <a href="mailto:care@cars24.com">care@cars24.com</a>
-                </div>
-                <div className="email-section">
-                  <h3>Media queries</h3>
-                  <a href="mailto:press@cars24.com">press@cars24.com</a>
-                </div>
-                <div className="email-section">
-                  <h3>Whistleblower</h3>
-                  <a href="mailto:whistle@cars24.com">whistle@cars24.com</a>
-                </div>
-              </div>
-              <div className="divider">
-                <span>OR</span>
-              </div>
-              <button className="whatsapp-btn">
-                <img
-                  src="https://assets.cars24.com/production/consumer-web-in/250626234733/d/_next/static/media/whatsapp_icon.e612ec0b.svg"
-                  alt="whatsapp"
-                  width={22}
-                  height={22}
-                />
-                <p>Chat on Whatsapp</p>
-              </button>
-            </div>
-          </div>
-        </div> */}
             </section>
             <section className="tf-section-contact">
                 <div className="container">

@@ -4,311 +4,285 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
-    const [isMobileMenuVisible, setMobileMenuVisible] = useState(false);
-    const [openDropdowns, setOpenDropdowns] = useState({});
-    const [isHeaderFixed, setHeaderFixed] = useState(false);
-    const [isHeaderSmall, setHeaderSmall] = useState(false);
-    const headerLowerRef = useRef(null);
-    const injectSpaceRef = useRef(null);
+  const [isMobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState({});
+  const [isHeaderFixed, setHeaderFixed] = useState(false);
+  const [isHeaderSmall, setHeaderSmall] = useState(false);
+  const headerLowerRef = useRef(null);
+  const injectSpaceRef = useRef(null);
 
-    // Static data for menu items (same pattern as CAR_CATEGORIES in Home.jsx)
-    const BODY_TYPES = [
-        { name: "SUV", to: "/carlisting", filter: "bodyType=SUV" },
-        { name: "Hatchback", to: "/carlisting", filter: "bodyType=HATCHBACK" },
-        { name: "Sedan", to: "/carlisting", filter: "bodyType=SEDAN" },
-    ];
+  // Static data for menu items (same pattern as CAR_CATEGORIES in Home.jsx)
+  const BODY_TYPES = [
+    { name: "SUV", to: "/carlisting", filter: "bodyType=SUV" },
+    { name: "Hatchback", to: "/carlisting", filter: "bodyType=HATCHBACK" },
+    { name: "Sedan", to: "/carlisting", filter: "bodyType=SEDAN" },
+  ];
 
-    const CAR_BRANDS = [
-        { name: "Bmw", to: "/carlisting", filter: "brand=bmw" },
-        { name: "Mercedes", to: "/carlisting", filter: "brand=mercedes" },
-        { name: "Hyndai", to: "/carlisting", filter: "brand=hyundai" },
-        { name: "Audi", to: "/carlisting", filter: "brand=audi" },
-    ];
+  const CAR_BRANDS = [
+    { name: "Bmw", to: "/carlisting", filter: "brand=bmw" },
+    { name: "Mercedes", to: "/carlisting", filter: "brand=mercedes" },
+    { name: "Hyndai", to: "/carlisting", filter: "brand=hyundai" },
+    { name: "Audi", to: "/carlisting", filter: "brand=audi" },
+  ];
 
-    const PRICE_RANGES = [
-        { name: "Under 2 lakhs", to: "/carlisting", filter: "maxPrice=2" },
-        { name: "Under 3 lakhs", to: "/carlisting", filter: "maxPrice=3" },
-        { name: "Under 5 lakhs", to: "/carlisting", filter: "maxPrice=5" },
-    ];
+  const PRICE_RANGES = [
+    { name: "Under 2 lakhs", to: "/carlisting", filter: "maxPrice=2" },
+    { name: "Under 3 lakhs", to: "/carlisting", filter: "maxPrice=3" },
+    { name: "Under 5 lakhs", to: "/carlisting", filter: "maxPrice=5" },
+  ];
 
-    const POPULAR_MODELS = [
-        { name: "S class", to: "/carlisting", filter: "modelName=test" },
-        { name: "Hyundai i20", to: "/carlisting", filter: "modelName=testing" },
-        {
-            name: "Renault Kwid",
-            to: "/carlisting",
-            filter: "modelName=testing",
-        },
-        { name: "Maruti Baleno", to: "/carlisting", filter: "modelName=test" },
-    ];
+  const POPULAR_MODELS = [
+    { name: "S class", to: "/carlisting", filter: "modelName=test" },
+    { name: "Hyundai i20", to: "/carlisting", filter: "modelName=testing" },
+    {
+      name: "Renault Kwid",
+      to: "/carlisting",
+      filter: "modelName=testing",
+    },
+    { name: "Maruti Baleno", to: "/carlisting", filter: "modelName=test" },
+  ];
 
-    // Toggle mobile menu visibility
-    const toggleMobileMenu = () => {
-        setMobileMenuVisible((prev) => {
-            const newState = !prev;
-            document.body.classList.toggle("mobile-menu-visible", newState);
-            if (!newState) {
-                // Reset all dropdowns when closing menu
-                setOpenDropdowns({});
-            }
-            return newState;
-        });
+  // Toggle mobile menu visibility
+  const toggleMobileMenu = () => {
+    setMobileMenuVisible((prev) => {
+      const newState = !prev;
+      document.body.classList.toggle("mobile-menu-visible", newState);
+      if (!newState) {
+        // Reset all dropdowns when closing menu
+        setOpenDropdowns({});
+      }
+      return newState;
+    });
+  };
+
+  // Handle dropdown toggle for mobile menu
+  const toggleDropdown = (index, level = 1) => {
+    setOpenDropdowns((prev) => {
+      const key = `${level}-${index}`;
+      const isOpen = !!prev[key];
+      // Close other dropdowns at the same level
+      const newOpenDropdowns = Object.keys(prev).reduce((acc, curr) => {
+        if (curr.startsWith(`${level}-`) && curr !== key) {
+          return { ...acc, [curr]: false };
+        }
+        return acc;
+      }, {});
+      return { ...newOpenDropdowns, [key]: !isOpen };
+    });
+  };
+
+  // Handle Escape key to close mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isMobileMenuVisible) {
+        toggleMobileMenu();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuVisible]);
+
+  // Header fixed and small behavior
+  useEffect(() => {
+    const headerLower = headerLowerRef.current;
+    if (!headerLower) return;
+
+    const offsetTop = headerLower.offsetTop;
+    const headerHeight = headerLower.offsetHeight;
+
+    // Create spacer div
+    const spacer = document.createElement("div");
+    spacer.style.height = `${headerHeight}px`;
+    spacer.style.display = "none";
+    headerLower.parentNode.insertBefore(spacer, headerLower.nextSibling);
+    injectSpaceRef.current = spacer;
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      setHeaderFixed(scrollTop > offsetTop + headerHeight);
+      setHeaderSmall(scrollTop > 300);
+      spacer.style.display =
+        scrollTop > offsetTop + headerHeight ? "block" : "none";
     };
 
-    // Handle dropdown toggle for mobile menu
-    const toggleDropdown = (index, level = 1) => {
-        setOpenDropdowns((prev) => {
-            const key = `${level}-${index}`;
-            const isOpen = !!prev[key];
-            // Close other dropdowns at the same level
-            const newOpenDropdowns = Object.keys(prev).reduce((acc, curr) => {
-                if (curr.startsWith(`${level}-`) && curr !== key) {
-                    return { ...acc, [curr]: false };
-                }
-                return acc;
-            }, {});
-            return { ...newOpenDropdowns, [key]: !isOpen };
-        });
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("load", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("load", handleScroll);
+      if (injectSpaceRef.current) {
+        injectSpaceRef.current.remove();
+      }
     };
+  }, []);
 
-    // Handle Escape key to close mobile menu
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === "Escape" && isMobileMenuVisible) {
-                toggleMobileMenu();
-            }
-        };
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [isMobileMenuVisible]);
-
-    // Header fixed and small behavior
-    useEffect(() => {
-        const headerLower = headerLowerRef.current;
-        if (!headerLower) return;
-
-        const offsetTop = headerLower.offsetTop;
-        const headerHeight = headerLower.offsetHeight;
-
-        // Create spacer div
-        const spacer = document.createElement("div");
-        spacer.style.height = `${headerHeight}px`;
-        spacer.style.display = "none";
-        headerLower.parentNode.insertBefore(spacer, headerLower.nextSibling);
-        injectSpaceRef.current = spacer;
-
-        const handleScroll = () => {
-            const scrollTop = window.pageYOffset;
-            setHeaderFixed(scrollTop > offsetTop + headerHeight);
-            setHeaderSmall(scrollTop > 300);
-            spacer.style.display =
-                scrollTop > offsetTop + headerHeight ? "block" : "none";
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        window.addEventListener("load", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("load", handleScroll);
-            if (injectSpaceRef.current) {
-                injectSpaceRef.current.remove();
-            }
-        };
-    }, []);
-
-    // Generate Buy Used Car menu items
-    const renderBuyUsedCarMenu = (isMobile = false) => (
+  // Generate Buy Used Car menu items
+  const renderBuyUsedCarMenu = (isMobile = false) => (
+    <ul style={isMobile && openDropdowns["1-1"] ? { display: "block" } : {}}>
+      <li className="dropdown2">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (isMobile) toggleDropdown(1, 2);
+          }}
+        >
+          Browse by Model
+        </a>
         <ul
-            style={isMobile && openDropdowns["1-1"] ? { display: "block" } : {}}
+          style={isMobile && openDropdowns["2-1"] ? { display: "block" } : {}}
         >
-            <li className="dropdown2">
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isMobile) toggleDropdown(1, 2);
-                    }}
-                >
-                    Browse by Model
-                </a>
-                <ul
-                    style={
-                        isMobile && openDropdowns["2-1"]
-                            ? { display: "block" }
-                            : {}
-                    }
-                >
-                    {POPULAR_MODELS.map((model, index) => (
-                        <li key={index}>
-                            <Link
-                                to={`${model.to}?${model.filter}`}
-                                onClick={
-                                    isMobile ? toggleMobileMenu : undefined
-                                }
-                            >
-                                Used {model.name} Cars in Bangalore
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+          {POPULAR_MODELS.map((model, index) => (
+            <li key={index}>
+              <Link
+                to={`${model.to}?${model.filter}`}
+                onClick={isMobile ? toggleMobileMenu : undefined}
+              >
+                Used {model.name} Cars in Bangalore
+              </Link>
             </li>
-            <li className="dropdown2">
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isMobile) toggleDropdown(2, 2);
-                    }}
-                >
-                    Browse by Make
-                </a>
-                <ul
-                    style={
-                        isMobile && openDropdowns["2-2"]
-                            ? { display: "block" }
-                            : {}
-                    }
-                >
-                    {CAR_BRANDS.map((brand, index) => (
-                        <li key={index}>
-                            <Link
-                                to={`${brand.to}?${brand.filter}`}
-                                onClick={
-                                    isMobile ? toggleMobileMenu : undefined
-                                }
-                            >
-                                {brand.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </li>
-            <li className="dropdown2">
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isMobile) toggleDropdown(3, 2);
-                    }}
-                >
-                    Browse by Price
-                </a>
-                <ul
-                    style={
-                        isMobile && openDropdowns["2-3"]
-                            ? { display: "block" }
-                            : {}
-                    }
-                >
-                    {PRICE_RANGES.map((price, index) => (
-                        <li key={index}>
-                            <Link
-                                to={`${price.to}?${price.filter}`}
-                                onClick={
-                                    isMobile ? toggleMobileMenu : undefined
-                                }
-                            >
-                                Used Cars {price.name} in Bangalore
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </li>
-            <li className="dropdown2">
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (isMobile) toggleDropdown(4, 2);
-                    }}
-                >
-                    Browse by Body Type
-                </a>
-                <ul
-                    style={
-                        isMobile && openDropdowns["2-4"]
-                            ? { display: "block" }
-                            : {}
-                    }
-                >
-                    {BODY_TYPES.map((type, index) => (
-                        <li key={index}>
-                            <Link
-                                to={`${type.to}?${type.filter}`}
-                                onClick={
-                                    isMobile ? toggleMobileMenu : undefined
-                                }
-                            >
-                                {type.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </li>
+          ))}
         </ul>
-    );
-
-    return (
-      <>
-        <header
-          className={`main-header style2 ${isHeaderFixed ? "is-fixed" : ""} ${
-            isHeaderSmall ? "is-small" : ""
-          }`}
+      </li>
+      <li className="dropdown2">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (isMobile) toggleDropdown(2, 2);
+          }}
         >
-          {/* Header Lower */}
-          <div className="header-lower" ref={headerLowerRef}>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="inner-container flex justify-space align-center">
-                    {/* Logo Box */}
-                    <div className="logo-box flex">
-                      <div className="logo">
-                        <Link to="/">
-                          <img
-                            className="lazyload img-none"
-                            data-src="assets/images/logo/logo.png"
-                            src="assets/images/logo/logo@2x.png"
-                            alt="Gadi Dikhao Logo"
-                            width={325}
-                            height={40}
-                          />
-                          <img
-                            className="lazyload img-is-fixed"
-                            data-src="assets/images/logo/logo@2x.png"
-                            src="assets/images/logo/logo@2x.png"
-                            alt="Gadi Dikhao Logo"
-                            width={225}
-                            height={40}
-                          />
-                        </Link>
-                      </div>
+          Browse by Make
+        </a>
+        <ul
+          style={isMobile && openDropdowns["2-2"] ? { display: "block" } : {}}
+        >
+          {CAR_BRANDS.map((brand, index) => (
+            <li key={index}>
+              <Link
+                to={`${brand.to}?${brand.filter}`}
+                onClick={isMobile ? toggleMobileMenu : undefined}
+              >
+                {brand.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+      <li className="dropdown2">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (isMobile) toggleDropdown(3, 2);
+          }}
+        >
+          Browse by Price
+        </a>
+        <ul
+          style={isMobile && openDropdowns["2-3"] ? { display: "block" } : {}}
+        >
+          {PRICE_RANGES.map((price, index) => (
+            <li key={index}>
+              <Link
+                to={`${price.to}?${price.filter}`}
+                onClick={isMobile ? toggleMobileMenu : undefined}
+              >
+                Used Cars {price.name} in Bangalore
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+      <li className="dropdown2">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (isMobile) toggleDropdown(4, 2);
+          }}
+        >
+          Browse by Body Type
+        </a>
+        <ul
+          style={isMobile && openDropdowns["2-4"] ? { display: "block" } : {}}
+        >
+          {BODY_TYPES.map((type, index) => (
+            <li key={index}>
+              <Link
+                to={`${type.to}?${type.filter}`}
+                onClick={isMobile ? toggleMobileMenu : undefined}
+              >
+                {type.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    </ul>
+  );
+
+  return (
+    <>
+      <header
+        className={`main-header style2 ${isHeaderFixed ? "is-fixed" : ""} ${
+          isHeaderSmall ? "is-small" : ""
+        }`}
+      >
+        {/* Header Lower */}
+        <div className="header-lower" ref={headerLowerRef}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="inner-container flex justify-space align-center">
+                  {/* Logo Box */}
+                  <div className="logo-box flex">
+                    <div className="logo">
+                      <Link to="/">
+                        <img
+                          className="lazyload img-none"
+                          data-src="assets/images/logo/logo.png"
+                          src="assets/images/logo/logo@2x.png"
+                          alt="Gadi Dikhao Logo"
+                          width={425}
+                          height={40}
+                        />
+                        <img
+                          className="lazyload img-is-fixed"
+                          data-src="assets/images/logo/logo@2x.png"
+                          src="assets/images/logo/logo@2x.png"
+                          alt="Gadi Dikhao Logo"
+                          width={225}
+                          height={40}
+                        />
+                      </Link>
                     </div>
-                    <div className="nav-outer flex align-center">
-                      {/* Main Menu */}
-                      <nav className="main-menu show navbar-expand-md">
-                        <div
-                          className="navbar-collapse collapse clearfix"
-                          id="navbarSupportedContent"
-                        >
-                          <ul className="navigation clearfix">
-                            <li className="current">
-                              <Link to="/">Home</Link>
-                            </li>
-                            <li className="tfcl-mega-menu">
-                              <Link to="/carlisting">Buy used car</Link>
-                            </li>
-                            <li className="tfcl-mega-menu">
-                              <Link
-                                to="/sell-car"
-                                // onClick={(e) =>
-                                //     e.preventDefault()
-                                // }
-                              >
-                                Sell car
-                              </Link>
-                              {/* <ul>
+                  </div>
+                  <div className="nav-outer flex align-center">
+                    {/* Main Menu */}
+                    <nav className="main-menu show navbar-expand-md">
+                      <div
+                        className="navbar-collapse collapse clearfix"
+                        id="navbarSupportedContent"
+                      >
+                        <ul className="navigation clearfix">
+                          <li className="current">
+                            <Link to="/">Home</Link>
+                          </li>
+                          <li className="tfcl-mega-menu">
+                            <Link to="/carlisting">Buy used car</Link>
+                          </li>
+                          <li className="tfcl-mega-menu">
+                            <Link
+                              to="/sell-car"
+                              // onClick={(e) =>
+                              //     e.preventDefault()
+                              // }
+                            >
+                              Sell car
+                            </Link>
+                            {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -355,12 +329,10 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                            </li>
-                            <li className="tfcl-mega-menu">
-                              <a href="#" onClick={(e) => e.preventDefault()}>
-                                Car finance
-                              </a>
-                              {/* <ul>
+                          </li>
+                          <li className="tfcl-mega-menu">
+                            <Link to="/coming-soon">Car finance</Link>
+                            {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -388,12 +360,10 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                            </li>
-                            <li className="tfcl-mega-menu">
-                              <a href="#" onClick={(e) => e.preventDefault()}>
-                                New cars
-                              </a>
-                              {/* <ul>
+                          </li>
+                          <li className="tfcl-mega-menu">
+                            <Link to="/coming-soon">New cars</Link>
+                            {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -420,12 +390,10 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                            </li>
-                            <li className="tfcl-mega-menu">
-                              <a href="#" onClick={(e) => e.preventDefault()}>
-                                Car services
-                              </a>
-                              {/* <ul>
+                          </li>
+                          <li className="tfcl-mega-menu">
+                            <Link to="/coming-soon">Car services</Link>
+                            {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
                                                                     href="#"
@@ -453,295 +421,104 @@ function Header() {
                                                                 </ul>
                                                             </li>
                                                         </ul> */}
-                            </li>
-                          </ul>
-                        </div>
-                      </nav>
-                      {/* Main Menu End */}
-                    </div>
-                    <div className="header-account flex align-center">
-                      <div className="flat-bt-top">
-                        <a className="sc-button" href="tel:+1234567890">
-                          <div className="icon">
-                            <img
-                              src="assets/images/icons/phone.png"
-                              alt="phone icon"
-                            />
-                          </div>
-                          <span>Call Us</span>
-                        </a>
+                          </li>
+                        </ul>
                       </div>
+                    </nav>
+                    {/* Main Menu End */}
+                  </div>
+                  <div className="header-account flex align-center">
+                    <div className="flat-bt-top">
+                      <a className="sc-button" href="tel:+1234567890">
+                        <div className="icon">
+                          <img
+                            src="assets/images/icons/phone.png"
+                            alt="phone icon"
+                          />
+                        </div>
+                        <span>Call Us</span>
+                      </a>
                     </div>
-                    <div
-                      className="mobile-nav-toggler mobile-button"
-                      onClick={toggleMobileMenu}
-                    >
-                      <span />
-                    </div>
+                  </div>
+                  <div
+                    className="mobile-nav-toggler mobile-button"
+                    onClick={toggleMobileMenu}
+                  >
+                    <span />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* End Header Lower */}
+        </div>
+        {/* End Header Lower */}
 
-          {/* Mobile Menu */}
-          <div className="close-btn" onClick={toggleMobileMenu}>
-            <span className="icon flaticon-cancel-1" />
-          </div>
-          <div
-            className={`mobile-menu ${
-              isMobileMenuVisible ? "mobile-menu-visible" : ""
-            }`}
-          >
-            <div className="menu-backdrop" onClick={toggleMobileMenu} />
-            <nav className="menu-box">
-              <div className="nav-logo">
-                <Link to="/">
-                  <img
-                    className="lazyload"
-                    data-src="assets/images/logo/logo@2x.png"
-                    src="assets/images/logo/logo@2x.png"
-                    alt="Gadi Dikhao Logo"
-                    width={197}
-                    height={48}
-                  />
-                </Link>
-              </div>
-              <div className="bottom-canvas">
-                {/* <div className="login-box flex align-center">
+        {/* Mobile Menu */}
+        <div className="close-btn" onClick={toggleMobileMenu}>
+          <span className="icon flaticon-cancel-1" />
+        </div>
+        <div
+          className={`mobile-menu ${
+            isMobileMenuVisible ? "mobile-menu-visible" : ""
+          }`}
+        >
+          <div className="menu-backdrop" onClick={toggleMobileMenu} />
+          <nav className="menu-box">
+            <div className="nav-logo">
+              <Link to="/" onClick={toggleMobileMenu}>
+                <img
+                  className="lazyload"
+                  data-src="assets/images/logo/logo@2x.png"
+                  src="assets/images/logo/logo@2x.png"
+                  alt="Gadi Dikhao Logo"
+                  width={197}
+                  height={48}
+                />
+              </Link>
+            </div>
+            <div className="bottom-canvas">
+              {/* <div className="login-box flex align-center">
                                 <i className="icon-autodeal-user fs-20" />
                                 <Link to="/login" className="fw-7 font-2">
                                     Login
                                 </Link>
                             </div> */}
-                <div className="menu-outer">
-                  <ul className="navigation clearfix">
-                    <li className="current">
-                      <Link to="/" onClick={toggleMobileMenu}>
-                        Home
-                      </Link>
-                    </li>
-                    <li className="tfcl-mega-menu">
-                      <Link to="/carlisting">Buy used car</Link>
-                    </li>
-                    <li className="tfcl-mega-menu">
-                      <Link
-                        to="/sell-car"
-                        // onClick={(e) => {
-                        //   e.preventDefault();
-                        //   toggleDropdown(2);
-                        // }}
-                      >
-                        Sell car
-                      </Link>
-                      {/* <ul
-                        style={{
-                          display: openDropdowns["1-2"] ? "block" : "none",
-                        }}
-                      >
-                        <li className="dropdown2">
-                          <Link
-                            to="/sell-car"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              toggleDropdown(1, 2);
-                            }}
-                          >
-                            Sell car
-                          </Link>
-                          <ul
-                            style={{
-                              display: openDropdowns["2-1"] ? "block" : "none",
-                            }}
-                          >
-                            <li>
-                              <Link
-                                to="/used-car-valuation"
-                                onClick={toggleMobileMenu}
-                              >
-                                Used car valuation
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/sell-car-delhi"
-                                onClick={toggleMobileMenu}
-                              >
-                                Sell car in Delhi
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/sell-car-mumbai"
-                                onClick={toggleMobileMenu}
-                              >
-                                Sell car in Mumbai
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/sell-car-bangalore"
-                                onClick={toggleMobileMenu}
-                              >
-                                Sell car in Bangalore
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul> */}
-                    </li>
-                    <li className="tfcl-mega-menu">
-                      <a
-                        href="#"
-                        // onClick={(e) => {
-                        //   e.preventDefault();
-                        //   toggleDropdown(3);
-                        // }}
-                      >
-                        Car finance
-                      </a>
-                      {/* <ul
-                        style={{
-                          display: openDropdowns["1-3"] ? "block" : "none",
-                        }}
-                      >
-                        <li className="dropdown2">
-                          <a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              toggleDropdown(1, 2);
-                            }}
-                          >
-                            Car finance
-                          </a>
-                          <ul
-                            style={{
-                              display: openDropdowns["2-1"] ? "block" : "none",
-                            }}
-                          >
-                            <li>
-                              <Link to="/car-loan" onClick={toggleMobileMenu}>
-                                Car loan
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/emi-calculator"
-                                onClick={toggleMobileMenu}
-                              >
-                                EMI Calculator
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul> */}
-                    </li>
-                    <li className="tfcl-mega-menu">
-                      <a
-                        href="#"
-                        // onClick={(e) => {
-                        //   e.preventDefault();
-                        //   toggleDropdown(4);
-                        // }}
-                      >
-                        New cars
-                      </a>
-                      {/* <ul
-                        style={{
-                          display: openDropdowns["1-4"] ? "block" : "none",
-                        }}
-                      >
-                        <li className="dropdown2">
-                          <a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              toggleDropdown(1, 2);
-                            }}
-                          >
-                            New cars
-                          </a>
-                          <ul
-                            style={{
-                              display: openDropdowns["2-1"] ? "block" : "none",
-                            }}
-                          >
-                            <li>
-                              <Link
-                                to="/new-cars-hyundai"
-                                onClick={toggleMobileMenu}
-                              >
-                                Hyundai
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/new-cars-maruti"
-                                onClick={toggleMobileMenu}
-                              >
-                                Maruti Suzuki
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul> */}
-                    </li>
-                    <li className="tfcl-mega-menu">
-                      <a
-                        href="#"
-                        // onClick={(e) => {
-                        //   e.preventDefault();
-                        //   toggleDropdown(5);
-                        // }}
-                      >
-                        Car services
-                      </a>
-                      {/* <ul
-                        style={{
-                          display: openDropdowns["1-5"] ? "block" : "none",
-                        }}
-                      >
-                        <li className="dropdown2">
-                          <a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              toggleDropdown(1, 2);
-                            }}
-                          >
-                            Car services
-                          </a>
-                          <ul
-                            style={{
-                              display: openDropdowns["2-1"] ? "block" : "none",
-                            }}
-                          >
-                            <li>
-                              <Link
-                                to="/car-insurance"
-                                onClick={toggleMobileMenu}
-                              >
-                                Car insurance
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/car-servicing"
-                                onClick={toggleMobileMenu}
-                              >
-                                Car servicing
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul> */}
-                    </li>
-                  </ul>
-                </div>
-                <div className="button-mobi-sell">
-                  {/* <Link
+              <div className="menu-outer">
+                <ul className="navigation clearfix">
+                  <li className="current">
+                    <Link to="/" onClick={toggleMobileMenu}>
+                      Home
+                    </Link>
+                  </li>
+                  <li className="tfcl-mega-menu">
+                    <Link to="/carlisting" onClick={toggleMobileMenu}>
+                      Buy used car
+                    </Link>
+                  </li>
+                  <li className="tfcl-mega-menu">
+                    <Link to="/sell-car" onClick={toggleMobileMenu}>
+                      Sell car
+                    </Link>
+                  </li>
+                  <li className="tfcl-mega-menu">
+                    <Link to="/coming-soon" onClick={toggleMobileMenu}>
+                      Car finance
+                    </Link>
+                  </li>
+                  <li className="tfcl-mega-menu">
+                    <Link to="/coming-soon" onClick={toggleMobileMenu}>
+                      New cars
+                    </Link>
+                  </li>
+                  <li className="tfcl-mega-menu">
+                    <Link to="/coming-soon" onClick={toggleMobileMenu}>
+                      Car services
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="button-mobi-sell">
+                {/* <Link
                                     className="sc-button btn-icon center"
                                     to="/add-listing"
                                     onClick={toggleMobileMenu}
@@ -763,7 +540,7 @@ function Header() {
                                                 fill="white"
                                             />
                                             <path
-                                                d="M19.6664 13.75H15.0831C15.0006 13.7501 14.9199 13.7258 14.8512 13.68C14.7825 13.6342 14.729 13.5691 14.6974 13.4929C14.6658 13.4167 14.6576 13.3328 14.6737 13.2518C14.6899 13.1709 14.7297 13.0966 14.7881 13.0383L16.7997 11.0267C16.9929 10.8327 17.2225 10.6789 17.4754 10.5742C17.7283 10.4695 17.9994 10.416 18.2731 10.4167H19.6664C19.7769 10.4167 19.8829 10.4606 19.961 10.5387C20.0392 10.6168 20.0831 10.7228 20.0831 10.8333C20.0831 10.9438 20.0392 11.0498 19.961 11.128C19.8829 11.2061 19.7769 11.25 19.6664 11.25H18.2731C17.9439 11.25 17.6223 11.3833 17.3889 11.6158L16.0889 12.9167H19.6664C19.7769 12.9167 19.8829 12.9606 19.961 13.0387C20.0392 13.1168 20.0831 13.2228 20.0831 13.3333C20.0831 13.4438 20.0392 13.5498 19.961 13.628C19.8829 13.7061 19.7769 13.75 19.6664 13.75ZM12.9998 13.75H7.99975C7.93868 13.75 7.87836 13.7365 7.82306 13.7106C7.76776 13.6847 7.71884 13.6469 7.67975 13.6L5.59642 11.1C5.54539 11.0393 5.5128 10.9652 5.50248 10.8866C5.49217 10.8079 5.50456 10.728 5.5382 10.6561C5.57184 10.5843 5.62532 10.5236 5.69233 10.4812C5.75935 10.4387 5.8371 10.4164 5.91642 10.4167H15.0831C15.1623 10.4167 15.2398 10.4393 15.3066 10.4818C15.3734 10.5243 15.4267 10.5849 15.4603 10.6566C15.4938 10.7283 15.5063 10.8081 15.4962 10.8866C15.486 10.9651 15.4538 11.0392 15.4031 11.1L13.3197 13.6C13.2807 13.6469 13.2317 13.6847 13.1764 13.7106C13.1211 13.7365 13.0608 13.75 12.9998 13.75ZM8.19475 12.9167H12.8039L14.1931 11.25H6.80558L8.19475 12.9167ZM18.4164 8.75C18.3351 8.75005 18.2556 8.72633 18.1877 8.68176C18.1197 8.63719 18.0663 8.57372 18.0339 8.49816C17.0931 6.3325 15.9423 3.92666 15.6447 3.64916C15.3256 3.37833 13.9681 2.91666 10.9164 2.91666H10.0831C7.03142 2.91666 5.67392 3.37833 5.35308 3.65083C5.05736 3.92666 3.90642 6.33333 2.96558 8.49916C2.92149 8.60061 2.83891 8.68038 2.73599 8.72094C2.63308 8.76149 2.51828 8.7595 2.41683 8.71541C2.31539 8.67132 2.23561 8.58873 2.19506 8.48582C2.1545 8.38291 2.15649 8.26811 2.20058 8.16666C2.67392 7.07666 4.26142 3.48416 4.81308 3.01499C5.50058 2.43166 7.46975 2.08333 10.0831 2.08333H10.9164C13.5297 2.08333 15.4989 2.43166 16.1864 3.01583C16.7381 3.485 18.3248 7.0775 18.7989 8.16749C18.826 8.23094 18.8369 8.30009 18.8308 8.3688C18.8247 8.4375 18.8017 8.50363 18.7638 8.56129C18.726 8.61895 18.6744 8.66635 18.6138 8.69927C18.5532 8.73219 18.4854 8.74962 18.4164 8.75ZM18.4164 17.9167H15.9164C15.2273 17.9167 14.6664 17.3558 14.6664 16.6667V15.4167C14.6664 15.3062 14.7103 15.2002 14.7885 15.122C14.8666 15.0439 14.9726 15 15.0831 15C15.1936 15 15.2996 15.0439 15.3777 15.122C15.4559 15.2002 15.4998 15.3062 15.4998 15.4167V16.6667C15.4998 16.7772 15.5436 16.8832 15.6218 16.9613C15.6999 17.0394 15.8059 17.0833 15.9164 17.0833H18.4164C18.5269 17.0833 18.6329 17.0394 18.711 16.9613C18.7892 16.8832 18.8331 16.7772 18.8331 16.6667V15C18.8331 14.8895 18.877 14.7835 18.9551 14.7054C19.0333 14.6272 19.1392 14.5833 19.2498 14.5833C19.3603 14.5833 19.4662 14.6272 19.5444 14.7054C19.6225 14.7835 19.6664 14.8895 19.6664 15V16.6667C19.6664 17.3558 19.1056 17.9167 18.4164 17.9167Z"
+                                                d="M19.6664 13.75H15.0831C15.0006 13.7501 14.9199 13.7258 14.8512 13.68C14.7825 13.6342 14.729 13.5691 14.6974 13.4929C14.6658 13.4167 14.6576 13.3328 14.6737 13.2518C14.6899 13.1709 14.7297 13.0966 14.7881 13.0383L16.7997 11.0267C16.9929 10.8327 17.2225 10.6789 17.4754 10.5742C17.7283 10.4695 17.9994 10.416 18.2731 10.4167H19.6664C19.7769 10.4167 19.8829 10.4606 19.961 10.5387C20.0392 10.6168 20.0831 10.7228 20.0831 10.8333C20.0831 10.9438 20.0392 11.0498 19.961 11.128C19.8829 11.2061 19.7769 11.25 19.6664 11.25H18.2731C17.9439 11.25 17.6223 11.3833 17.3889 11.6158L16.0889 12.9167H19.6664C19.7769 12.9167 19.8829 12.9606 19.961 13.0387C20.0392 13.1168 20.0831 13.2228 20.0831 13.3333C20.0831 13.4438 20.0392 13.5498 19.961 13.628C19.8829 13.7061 19.7769 13.75 19.6664 13.75ZM12.9998 13.75H7.99975C7.93868 13.75 7.87836 13.7365 7.82306 13.7106C7.76776 13.6847 7.71884 13.6469 7.67975 13.6L5.59642 11.1C5.54539 11.0393 5.5128 10.9652 5.50248 10.8866C5.49217 10.8079 5.50456 10.728 5.5382 10.6561C5.57184 10.5843 5.62532 10.5236 5.69233 10.4812C5.75935 10.4387 5.8371 10.4164 5.91642 10.4167H15.0831C15.1623 10.4167 15.2398 10.4393 15.3066 10.4818C15.3734 10.5243 15.4267 10.5849 15.4603 10.6566C15.4938 10.7283 15.5063 10.8081 15.4962 10.8866C15.486 10.9651 15.4538 11.0392 15.4031 11.1L13.3197 13.6C13.2807 13.6469 13.2317 13.6847 13.1764 13.7106C13.1211 13.7365 13.0608 13.75 12.9998 13.75ZM8.19475 12.9167H12.8039L14.1931 11.25H6.80558L8.19475 12.9167ZM18.4164 8.75C18.3351 8.75005 18.2556 8.72633 18.1877 8.68176C18.1197 8.63719 18.0663 8.57372 18.0339 8.49816C17.0931 6.3325 15.9423 3.92666 15.6447 3.64916C15.3256 3.37833 13.9681 2.91666 10.9164 2.91666H10.0831C7.03142 2.91666 5.67392 3.37833 5.35308 3.65083C5.05736 3.92666 3.90642 6.33333 2.96558 8.49916C2.92149 8.60061 2.83891 8.68038 2.73599 8.72094C2.63308 8.76149 2.51828 8.75950 2.41683 8.71541C2.31539 8.67132 2.23561 8.58873 2.19506 8.48582C2.1545 8.38291 2.15649 8.26811 2.20058 8.16666C2.67392 7.07666 4.26142 3.48416 4.81308 3.01499C5.50058 2.43166 7.46975 2.08333 10.0831 2.08333H10.9164C13.5297 2.08333 15.4989 2.43166 16.1864 3.01583C16.7381 3.485 18.3248 7.0775 18.7989 8.16749C18.826 8.23094 18.8369 8.30009 18.8308 8.36880C18.8247 8.43750 18.8017 8.50363 18.7638 8.56129C18.726 8.61895 18.6744 8.66635 18.6138 8.69927C18.5532 8.73219 18.4854 8.74962 18.4164 8.75ZM18.4164 17.9167H15.9164C15.2273 17.9167 14.6664 17.3558 14.6664 16.6667V15.4167C14.6664 15.3062 14.7103 15.2002 14.7885 15.122C14.8666 15.0439 14.9726 15 15.0831 15C15.1936 15 15.2996 15.0439 15.3777 15.122C15.4559 15.2002 15.4998 15.3062 15.4998 15.4167V16.6667C15.4998 16.7772 15.5436 16.8832 15.6218 16.9613C15.6999 17.0394 15.8059 17.0833 15.9164 17.0833H18.4164C18.5269 17.0833 18.6329 17.0394 18.711 16.9613C18.7892 16.8832 18.8331 16.7772 18.8331 16.6667V15C18.8331 14.8895 18.877 14.7835 18.9551 14.7054C19.0333 14.6272 19.1392 14.5833 19.2498 14.5833C19.3603 14.5833 19.4662 14.6272 19.5444 14.7054C19.6225 14.7835 19.6664 14.8895 19.6664 15V16.6667C19.6664 17.3558 19.1056 17.9167 18.4164 17.9167Z"
                                                 fill="white"
                                             />
                                         </g>
@@ -780,14 +557,14 @@ function Header() {
                                     </svg>
                                     <span>Add listing</span>
                                 </Link> */}
-                </div>
               </div>
-            </nav>
-          </div>
-          {/* End Mobile Menu */}
-        </header>
-      </>
-    );
+            </div>
+          </nav>
+        </div>
+        {/* End Mobile Menu */}
+      </header>
+    </>
+  );
 }
 
 export default Header;

@@ -72,7 +72,7 @@ function Footer() {
         navigate("/sell-car");
         break;
       case "loan":
-        navigate("/loan"); // Make sure you have this route
+        navigate("/coming-soon"); // Make sure you have this route
         break;
       case "orbit":
         // Handle orbit case if needed
@@ -120,7 +120,7 @@ function Footer() {
                     <Link to="/about">About Us</Link>
                   </li>
                   <li>
-                    <Link to="/testimonials">Testimonials</Link>
+                    <Link to="/coming-soon">Testimonials</Link>
                   </li>
                 </ul>
               </div>
@@ -142,16 +142,16 @@ function Footer() {
                 <h4 className="footer-section-title">Help & support</h4>
                 <ul className="footer-links-list">
                   <li>
-                    <Link to="/sell-car#faq">FAQs</Link>
+                    <Link to="/coming-soon">FAQs</Link>
                   </li>
                   <li>
-                    <Link to="/security">Security</Link>
+                    <Link to="/coming-soon">Security</Link>
                   </li>
                   <li>
                     <Link to="/contactUs">Contact us</Link>
                   </li>
                   <li>
-                    <Link to="/terms">Terms & conditions</Link>
+                    <Link to="/coming-soon">Terms & conditions</Link>
                   </li>
                 </ul>
               </div>
