@@ -17,7 +17,7 @@ function ContactUs() {
             };
 
             const response = await axios.post(
-                "http://localhost:8000/api/enquiry",
+                "https://api.gadidikhao.com/api/enquiry",
                 payload,
                 {
                     headers: {
