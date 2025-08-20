@@ -58,7 +58,7 @@ function TestiMonial() {
                                     />
                                 </div>
                                 <div className="content">
-                                    <h5>Rohit Verma</h5>
+                                    <h5>Sweta Tiwari</h5>
                                     <p className="fs-12 lh-16">Car Seller</p>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ function TestiMonial() {
                                     />
                                 </div>
                                 <div className="content">
-                                    <h5>Neha Sharma</h5>
+                                    <h5>Rakesh Verma</h5>
                                     <p className="fs-12 lh-16">Car Buyer</p>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@ function TestiMonial() {
                                     />
                                 </div>
                                 <div className="content">
-                                    <h5>Akash Mehta</h5>
+                                    <h5>Sweety kumari</h5>
                                     <p className="fs-12 lh-16">
                                         Verified Seller
                                     </p>
@@ -153,7 +153,7 @@ function TestiMonial() {
                                     />
                                 </div>
                                 <div className="content">
-                                    <h5>Sandeep Kumar</h5>
+                                    <h5>Riya Jha</h5>
                                     <p className="fs-12 lh-16">Car Dealer</p>
                                 </div>
                             </div>
