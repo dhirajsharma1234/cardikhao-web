@@ -1000,7 +1000,7 @@ function Home() {
                   {[
                     {
                       title: "BUY",
-                      description: "Coming soon...",
+                      description: "",
                       image: "assets/images/services/2/service-1.webp",
                       features: [
                         {
@@ -1066,7 +1066,7 @@ function Home() {
                     // },
                     {
                       title: "SELL",
-                      description: "Coming soon...",
+                      description: "",
                       image: "assets/images/services/2/service-4.webp",
                       features: [
                         {
@@ -1088,7 +1088,7 @@ function Home() {
                     },
                     {
                       title: "FINANCE",
-                      description: "Coming soon...",
+                      description: "",
                       image: "assets/images/services/2/service-5.webp",
                       features: [
                         {
@@ -1110,7 +1110,7 @@ function Home() {
                     },
                     {
                       title: "SCRAP CAR",
-                      description: "Coming soon...",
+                      description: "",
                       image: "assets/images/services/2/service-6.webp",
                       features: [
                         {

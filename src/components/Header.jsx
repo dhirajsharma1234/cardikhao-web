@@ -331,7 +331,7 @@ function Header() {
                                                         </ul> */}
                           </li>
                           <li className="tfcl-mega-menu">
-                            <Link to="/coming-soon">Car finance</Link>
+                            <Link to="/coming-soon">Loans</Link>
                             {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
@@ -392,7 +392,7 @@ function Header() {
                                                         </ul> */}
                           </li>
                           <li className="tfcl-mega-menu">
-                            <Link to="/coming-soon">Car services</Link>
+                            <Link to="/contactUs">Contact</Link>
                             {/* <ul>
                                                             <li className="dropdown2">
                                                                 <a
@@ -502,7 +502,7 @@ function Header() {
                   </li>
                   <li className="tfcl-mega-menu">
                     <Link to="/coming-soon" onClick={toggleMobileMenu}>
-                      Car finance
+                      Loans
                     </Link>
                   </li>
                   <li className="tfcl-mega-menu">
@@ -511,8 +511,8 @@ function Header() {
                     </Link>
                   </li>
                   <li className="tfcl-mega-menu">
-                    <Link to="/coming-soon" onClick={toggleMobileMenu}>
-                      Car services
+                    <Link to="/contactUs" onClick={toggleMobileMenu}>
+                      Contact
                     </Link>
                   </li>
                 </ul>
