@@ -17,7 +17,7 @@ import Error505 from "./components/Error505";
 import ScrollToTop from "./components/ScrollToTop";
 import ComingSoon from "./pages/ComingSoon";
 
-//.
+//..
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
