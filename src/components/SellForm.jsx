@@ -1045,7 +1045,7 @@ function SellForm() {
             };
 
             const response = await axios.post(
-                "http://localhost:8000/api/sell/car",
+                "https://api.gadidikhao.com/api/sell/car",
                 formDataToSend,
                 config
             );
