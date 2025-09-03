@@ -269,6 +269,8 @@ function Home() {
   const [contactFormType, setContactFormType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { getParam, setParam } = useQueryParams();
+
+  const [searchInput, setSearchInput] = useState("");
   const serviceType = getParam("serviceType");
 
   // API calls
@@ -298,11 +300,8 @@ function Home() {
   // Dynamic search on Enter + Button Click
   const handleSearch = (e) => {
     if ((e.type === "keydown" && e.key === "Enter") || e.type === "click") {
-      console.log("button clicked");
-      const query = searchInputRef.current?.value?.trim();
-      if (query) {
-        navigate(`/carlisting?search=${encodeURIComponent(query)}`);
-      }
+      if (searchInput)
+        navigate(`/carlisting?search=${encodeURIComponent(searchInput)}`);
     }
   };
 
@@ -420,7 +419,8 @@ function Home() {
                     </svg>
                   </div>
                   <input
-                    ref={searchInputRef}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
                     placeholder={placeholder || ""}
                     className="searchInput animatedPlaceholder"
                     type="text"
@@ -486,7 +486,8 @@ function Home() {
                 <div className="input-wrap">
                   <div className="input-shift">
                     <input
-                      ref={searchInputRef}
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
                       placeholder={placeholder}
                       className="searchInput animatedPlaceholder"
                       type="text"
