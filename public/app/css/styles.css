@@ -15783,6 +15783,9 @@ p.active::after{
 .input-shift{
   position: relative;
     height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .input-wrap>div input {
     padding-left: 52px;
@@ -17092,6 +17095,7 @@ p.active::after{
         gap: 15px;
         padding: 0 16px;
         z-index: 3;
+        bottom: 75px;
       }
       
       .bannerCard {
@@ -17246,6 +17250,7 @@ p.active::after{
       text-overflow: ellipsis;
       background: transparent !important;
       border: none !important;
+      margin-right: 10px;
     }
     
     /* Animated Placeholder */
@@ -19760,4 +19765,39 @@ p.active::after{
 
 ::-webkit-scrollbar-thumb:hover {
     background: #f25c05
+}
+
+/* whatsap button   */
+
+.float{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:120px;
+    right:20px;
+    background-color:#25d366;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+  font-size:30px;
+    box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+.float img{
+  width: 40px;
+}
+
+.my-float{
+    margin-top:16px;
+}
+.custom-search-btn{
+  max-width: 100px;
+  width: 100%;
+  margin-right: -10px;
+}
+.coming-soon-content{
+  z-index: 1 !important;
 }

@@ -21,7 +21,7 @@ function SellCar() {
                                     <span>
                                         Get doorstep pick up
                                         <br />
-                                        and instant payment
+                                        &nbsp;and instant payment
                                     </span>
                                 </div>
                             </div>
