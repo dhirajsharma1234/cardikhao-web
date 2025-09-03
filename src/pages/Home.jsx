@@ -32,6 +32,7 @@ const BANNER_CARDS = [
         title: "Scrap Your Car",
         image: "assets/images/services/scrap-car-icon.png",
         to: "/sell-car",
+        type: "scrap",
     },
     {
         title: "Get Loan",
@@ -39,6 +40,7 @@ const BANNER_CARDS = [
         image: "assets/images/services/service-7.png",
         ariaLabel: "Get Loan for your car",
         to: "/coming-soon",
+        type: "finance",
     },
     {
         title: "Sell Car",
@@ -177,12 +179,17 @@ const CenteredLoader = () => (
 );
 
 // Reusable Banner Card Component
-const BannerCard = ({ card }) => (
+const BannerCard = ({ card, modalView }) => (
     <Link
         to={card.to}
         className="bannerCard interactiveElement"
         style={{ background: "rgb(248, 250, 252)" }}
         aria-label={card.ariaLabel}
+        onClick={(e) => {
+            if (card.type && modalView(card) === false) {
+                e.preventDefault();
+            }
+        }}
     >
         <div className="bannerCard__content">
             <p
@@ -419,7 +426,11 @@ function Home() {
                     </div>
                     <div className="bannerCards__container">
                         {BANNER_CARDS.map((card, index) => (
-                            <BannerCard key={index} card={card} />
+                            <BannerCard
+                                key={index}
+                                card={card}
+                                modalView={handleServiceClick}
+                            />
                         ))}
                     </div>
                 </div>
