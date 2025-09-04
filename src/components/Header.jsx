@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useQueryParams } from "../hooks/useParams";
+import ContactForm from "./ContactForm";
 
 function Header() {
   const location = useLocation();
@@ -14,7 +15,7 @@ function Header() {
   const injectSpaceRef = useRef(null);
   const [activeMenu, setActiveMenu] = useState("/");
 
-  const { setParam } = useQueryParams();
+  const { setParam, getParam } = useQueryParams();
 
   // Static data for menu items (same pattern as CAR_CATEGORIES in Home.jsx)
   const BODY_TYPES = [
@@ -239,8 +240,352 @@ function Header() {
     </ul>
   );
 
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  const [contactFormType, setContactFormType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFormSubmit = async (formData) => {
+    setIsSubmitting(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      console.log("Form submitted:", formData, "Type:", contactFormType);
+
+      alert(
+        `Thank you for your ${contactFormType} enquiry! We'll contact you soon.`
+      );
+
+      setIsContactFormOpen(false);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error submitting your form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  const serviceType = getParam("serviceType");
+
+  React.useEffect(() => {
+    if (!!serviceType) {
+      if (
+        serviceType === "finance" ||
+        serviceType === "scrap" ||
+        serviceType === "callback"
+      ) {
+        setContactFormType(serviceType);
+        setIsContactFormOpen(true);
+      }
+    }
+  }, [serviceType]);
+
   return (
     <>
+      <ContactForm
+        isOpen={isContactFormOpen}
+        onClose={() => {
+          setIsContactFormOpen(false);
+          setParam("serviceType", null);
+        }}
+        onSubmit={handleFormSubmit}
+        isSubmitting={isSubmitting}
+        title={
+          contactFormType === "finance"
+            ? "Car Finance Enquiry"
+            : contactFormType === "callback"
+            ? "Request a callback"
+            : "Scrap Your Car Enquiry"
+        }
+        description={
+          contactFormType === "finance"
+            ? "Get the best financing options for your dream car"
+            : contactFormType === "callback"
+            ? "We’ll call you back at your convenience"
+            : "Get the best value for your old car"
+        }
+        showName={true}
+        showEmail={true}
+        showPhone={true}
+        showMessage={true}
+        showPrice={contactFormType === "finance"}
+        priceLabel={
+          contactFormType === "finance" ? "Loan Amount Needed (₹)" : ""
+        }
+        minPrice={0}
+      />
+      <style jsx>{`
+        .car-details-container {
+          min-height: 100vh;
+          background-color: #f8f9fa;
+          padding: 20px;
+        }
+
+        .loading,
+        .error {
+          padding: 20px;
+          text-align: center;
+          font-size: 18px;
+        }
+
+        .error {
+          color: #dc3545;
+        }
+
+        .no-similar-cars {
+          text-align: center;
+          padding: 40px 20px;
+          width: 100%;
+          color: #666;
+          font-size: 18px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .no-similar-cars i {
+          font-size: 48px;
+          margin-bottom: 20px;
+          color: #999;
+        }
+
+        .no-similar-cars p {
+          margin: 0;
+          font-weight: 500;
+        }
+
+        .popup-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+        }
+
+        .popup-form {
+          background: white;
+          padding: 30px;
+          border-radius: 8px;
+          width: 90%;
+          max-width: 500px;
+          z-index: 10000;
+          position: relative;
+          max-height: 90vh;
+          overflow-y: auto;
+        }
+
+        .form-popup-container {
+          position: relative;
+        }
+
+        .car-price {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 20px;
+          color: #333;
+        }
+
+        .form-group {
+          margin-bottom: 15px;
+        }
+
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 16px;
+        }
+
+        .form-group textarea {
+          height: 80px;
+        }
+
+        .error-text {
+          color: #dc3545;
+          font-size: 12px;
+          margin-top: 5px;
+          display: block;
+        }
+
+        .submit-btn {
+          background-color: #4caf50;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          width: 100%;
+          margin-top: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .submit-btn:hover {
+          background-color: #45a049;
+        }
+
+        .close-btns.full-width {
+          background-color: #f44336;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .close-btns.full-width:hover {
+          background-color: #d32f2f;
+        }
+
+        .btn-pf {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 12px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          min-height: 44px;
+        }
+
+        .btn-pf.bg-orange {
+          background-color: #ff9800;
+        }
+
+        .btn-pf.bg-green {
+          background-color: #4caf50;
+        }
+
+        .btn-pf:disabled,
+        .submit-btn:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+
+        .spinner {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border: 2px solid #fff;
+          border-top: 2px solid transparent;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+          margin-right: 8px;
+          vertical-align: middle;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        /* Specifications Accordion Styles */
+        .specs-header {
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 0;
+          border-bottom: 1px solid #eee;
+        }
+
+        .specs-header h2 {
+          margin: 0;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+        }
+
+        .accordion-icon {
+          margin-left: 10px;
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .specs-content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease-out;
+        }
+
+        .specs-content.open {
+          max-height: 1000px;
+          transition: max-height 0.5s ease-in;
+        }
+
+        /* Desktop - always show content */
+        @media (min-width: 992px) {
+          .specs-content {
+            max-height: none !important;
+            display: block !important;
+            padding: 5px;
+          }
+          .accordion-icon {
+            display: none;
+          }
+          .specs-header {
+            cursor: default;
+            border-bottom: none;
+            padding-bottom: 0;
+          }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 991px) {
+          .specs-header {
+            background-color: #f5f5f5;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+          }
+
+          .specs-content {
+            padding: 0 15px;
+          }
+
+          .specs-content.open {
+            padding-bottom: 15px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .popup-form {
+            width: 95%;
+            padding: 20px;
+          }
+
+          .row {
+            flex-direction: column;
+          }
+
+          .col-lg-6 {
+            width: 100%;
+          }
+        }
+      `}</style>
       <header
         className={`main-header style2 ${isHeaderFixed ? "is-fixed" : ""} ${
           isHeaderSmall ? "is-small" : ""
