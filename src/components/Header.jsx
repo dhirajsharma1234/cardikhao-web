@@ -308,9 +308,7 @@ function Header() {
                               setParam("serviceType", "finance");
                             }}
                           >
-                            {/* <Link to="/coming-soon"> */}
-                            Loans
-                            {/* </Link> */}
+                            <Link to="~">Loans</Link>
                           </li>
                           <li
                             className={`tfcl-mega-menu ${
@@ -320,9 +318,7 @@ function Header() {
                               setParam("serviceType", "scrap");
                             }}
                           >
-                            {/* <Link to="/coming-soon"> */}
-                            Scrap Your Car
-                            {/* </Link> */}
+                            <Link to="~">Scrap Your Car</Link>
                           </li>
                           <li
                             className={`tfcl-mega-menu ${
