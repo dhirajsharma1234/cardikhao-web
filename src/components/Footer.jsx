@@ -525,7 +525,7 @@ function Footer() {
                 </nav>
             </div>
             <Link
-                to="https://wa.me/8603250946?text=Hello%20I%20would%20like%20to%20make%20an%20enquiry."
+                to="https://wa.me/8742995656?text=Hello%20I%20would%20like%20to%20make%20an%20enquiry."
                 className="float"
                 target="_blank"
             >
