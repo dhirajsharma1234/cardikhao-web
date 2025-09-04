@@ -16,6 +16,7 @@ import NotFound from "./components/NotFound";
 import Error505 from "./components/Error505";
 import ScrollToTop from "./components/ScrollToTop";
 import ComingSoon from "./pages/ComingSoon";
+import ScrapCarLandingPage from "./pages/ScrapCar";
 
 //..
 const queryClient = new QueryClient({
@@ -51,6 +52,11 @@ function App() {
                         <Route path="/coming-soon" element={<ComingSoon />} />
                         <Route path="/car/:carId" element={<Cardetails />} />
                         <Route path="/sell-car" element={<SellCar />} />
+
+                        <Route
+                            path="/selling-car"
+                            element={<ScrapCarLandingPage />}
+                        />
 
                         {/* Error handling routes */}
                         <Route path="/not-found" element={<NotFound />} />
