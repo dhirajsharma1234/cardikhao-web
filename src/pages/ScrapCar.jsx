@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,6 +16,32 @@ const ScrapCarLandingPage = () => {
         city: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [brands, setBrands] = useState([]);
+    const [loadingBrands, setLoadingBrands] = useState(true);
+
+    // Fetch brands from API
+    useEffect(() => {
+        const fetchBrands = async () => {
+            try {
+                const response = await axios.get(
+                    "https://api.gadidikhao.com/api/brand/all?page=1&limit=100"
+                );
+
+                console.log("API Response:", response.data); // Debug log
+
+                if (response.data && response.data.data) {
+                    setBrands(response.data.data);
+                }
+            } catch (error) {
+                console.error("Error fetching brands:", error);
+                toast.error("Failed to load car brands");
+            } finally {
+                setLoadingBrands(false);
+            }
+        };
+
+        fetchBrands();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -378,21 +404,21 @@ const ScrapCarLandingPage = () => {
                                         value={formData.carBrand}
                                         onChange={handleInputChange}
                                         required
+                                        disabled={loadingBrands}
                                     >
                                         <option value="">
-                                            Select Car Brand
+                                            {loadingBrands
+                                                ? "Loading brands..."
+                                                : "Select Car Brand"}
                                         </option>
-                                        <option value="Toyota">Toyota</option>
-                                        <option value="Honda">Honda</option>
-                                        <option value="Hyundai">Hyundai</option>
-                                        <option value="Ford">Ford</option>
-                                        <option value="Maruti Suzuki">
-                                            Maruti Suzuki
-                                        </option>
-                                        <option value="Tata">Tata</option>
-                                        <option value="Mahindra">
-                                            Mahindra
-                                        </option>
+                                        {brands.map((brand) => (
+                                            <option
+                                                key={brand._id}
+                                                value={brand.name}
+                                            >
+                                                {brand.name}
+                                            </option>
+                                        ))}
                                     </select>
 
                                     <input

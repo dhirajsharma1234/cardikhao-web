@@ -16623,6 +16623,15 @@ p.active::after{
     margin-top: 1.5rem;
   }
   
+    .copyrightLink {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--grey-250);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
   /* Responsive adjustments */
   @media (min-width: 540px) {
     .footer-links-grid {
