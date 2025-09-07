@@ -182,7 +182,7 @@ function ContactUs() {
                                     <div className="box-info">
                                         <h5>Infomation:</h5>
                                         <p>1-333-345-6868</p>
-                                        <p>themesflat@gmail.com</p>
+                                        <p>contactus.gadidikhao@gmail.com</p>
                                     </div>
                                     <div className="box-info">
                                         <h5>Opentime:</h5>
