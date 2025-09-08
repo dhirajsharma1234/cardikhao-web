@@ -19488,6 +19488,7 @@ p.active::after{
   transition: all 0.2s ease;
   font-weight: 500;
   text-align: left;
+  text-transform: capitalize;
 }
 
 .year-option.selected,

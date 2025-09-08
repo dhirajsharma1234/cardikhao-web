@@ -181,7 +181,7 @@ function ContactUs() {
                                     </div>
                                     <div className="box-info">
                                         <h5>Infomation:</h5>
-                                        <p>1-333-345-6868</p>
+                                        <p>+91-874-299-5656</p>
                                         <p>contactus.gadidikhao@gmail.com</p>
                                     </div>
                                     <div className="box-info">
