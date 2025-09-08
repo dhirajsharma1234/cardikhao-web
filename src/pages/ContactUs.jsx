@@ -172,13 +172,13 @@ function ContactUs() {
                             <div className="contact-info box-sd">
                                 <h2 className="mb-30">Contact Us</h2>
                                 <div className="wrap-info">
-                                    <div className="box-info">
+                                    {/* <div className="box-info">
                                         <h5>Address</h5>
                                         <p>
                                             101 E 129th St, East Chicago, IN
                                             46312 <br /> United States
                                         </p>
-                                    </div>
+                                    </div> */}
                                     <div className="box-info">
                                         <h5>Infomation:</h5>
                                         <p>+91-874-299-5656</p>
