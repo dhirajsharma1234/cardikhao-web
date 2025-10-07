@@ -1007,51 +1007,102 @@ function SellForm() {
         }
     };
 
-    // Submit form to API
+    // Submit form to API BY FORM DATA
+    // const submitForm = async () => {
+    //     try {
+    //         setLoading(true);
+
+    //         const formDataToSend = new FormData();
+    //         formDataToSend.append("brand", formData.brandId);
+    //         formDataToSend.append("modelId", formData.modelId);
+    //         formDataToSend.append("year", formData.year);
+    //         formDataToSend.append("expectedPrice", formData.expectedPrice);
+    //         formDataToSend.append("mileage", formData.mileage);
+    //         formDataToSend.append("fuelType", formData.fuelType);
+    //         formDataToSend.append("transmission", formData.transmission);
+    //         formDataToSend.append("color", formData.color);
+    //         formDataToSend.append("additionalInfo", formData.additionalInfo);
+    //         formDataToSend.append("sellerName", formData.sellerName);
+    //         formDataToSend.append("sellerPhone", formData.sellerPhone);
+    //         formDataToSend.append("sellerEmail", formData.sellerEmail);
+    //         formDataToSend.append("bodyType", formData.bodyType);
+    //         formDataToSend.append("condition", formData.condition);
+    //         formDataToSend.append("variant", formData.variant);
+    //         formDataToSend.append("ownership", formData.ownership);
+    //         formDataToSend.append("odometer", formData.odometer);
+
+    //         // Append each image file
+    //         formData.images.forEach((image) => {
+    //             formDataToSend.append("images", image);
+    //         });
+
+    //         const token = localStorage.getItem("token");
+    //         const config = {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //                 "Content-Type": "multipart/form-data",
+    //             },
+    //         };
+
+    //         const response = await axios.post(
+    //             "http://localhost:8000/api/sell/car",
+    //             formDataToSend,
+    //             config
+    //         );
+
+    //         if (response.data.status) {
+    //             goToStep(totalSteps + 1); // Show success step
+    //         } else {
+    //             setError("Failed to submit form. Please try again.");
+    //         }
+    //     } catch (err) {
+    //         setError(err.response?.data?.message || err.message);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const submitForm = async () => {
         try {
             setLoading(true);
 
-            const formDataToSend = new FormData();
-            formDataToSend.append("brand", formData.brandId);
-            formDataToSend.append("modelId", formData.modelId);
-            formDataToSend.append("year", formData.year);
-            formDataToSend.append("expectedPrice", formData.expectedPrice);
-            formDataToSend.append("mileage", formData.mileage);
-            formDataToSend.append("fuelType", formData.fuelType);
-            formDataToSend.append("transmission", formData.transmission);
-            formDataToSend.append("color", formData.color);
-            formDataToSend.append("additionalInfo", formData.additionalInfo);
-            formDataToSend.append("sellerName", formData.sellerName);
-            formDataToSend.append("sellerPhone", formData.sellerPhone);
-            formDataToSend.append("sellerEmail", formData.sellerEmail);
-            formDataToSend.append("bodyType", formData.bodyType);
-            formDataToSend.append("condition", formData.condition);
-            formDataToSend.append("variant", formData.variant);
-            formDataToSend.append("ownership", formData.ownership);
-            formDataToSend.append("odometer", formData.odometer);
-
-            // Append each image file
-            formData.images.forEach((image) => {
-                formDataToSend.append("images", image);
-            });
+            // Create plain JSON object (no FormData)
+            const dataToSend = {
+                brand: formData.brandId,
+                modelId: formData.modelId,
+                year: formData.year,
+                expectedPrice: formData.expectedPrice,
+                mileage: formData.mileage,
+                fuelType: formData.fuelType,
+                transmission: formData.transmission,
+                color: formData.color,
+                additionalInfo: formData.additionalInfo,
+                sellerName: formData.sellerName,
+                sellerPhone: formData.sellerPhone,
+                sellerEmail: formData.sellerEmail,
+                bodyType: formData.bodyType,
+                condition: formData.condition,
+                variant: formData.variant,
+                ownership: formData.ownership,
+                odometer: formData.odometer,
+            };
 
             const token = localStorage.getItem("token");
+
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                 },
             };
 
             const response = await axios.post(
-                "https://api.gadidikhao.com/api/sell/car",
-                formDataToSend,
+                "http://localhost:8000/api/sell/car",
+                dataToSend,
                 config
             );
 
             if (response.data.status) {
-                goToStep(totalSteps + 1); // Show success step
+                goToStep(totalSteps + 1); // Go to success step
             } else {
                 setError("Failed to submit form. Please try again.");
             }
@@ -1359,6 +1410,27 @@ function SellForm() {
                                 "Kolkata",
                                 "Pune",
                                 "Ahmedabad",
+                                "Faridabad",
+                                "Gurugram",
+                                "Ghaziabad",
+                                "Greater Noida",
+                                "Karnal",
+                                "Zind",
+                                "Panipat",
+                                "Sonipat",
+                                "Rohtak",
+                                "Bhiwani",
+                                "Charkhi Dadri",
+                                "Jhajjar",
+                                "Mahendragarh",
+                                "Rewari",
+                                "Nuh",
+                                "Palwal",
+                                "Shamli",
+                                "Muzaffarnagar",
+                                "Meerut",
+                                "Hapur",
+                                "Bulandshahr",
                             ].map((location) => (
                                 <div
                                     key={location}
@@ -1379,7 +1451,7 @@ function SellForm() {
                     </div>
 
                     {/* Vehicle Photos Tab */}
-                    <div
+                    {/* <div
                         className={`container tab-pane ${
                             currentStep === 8 ? "active" : ""
                         }`}
@@ -1453,12 +1525,12 @@ function SellForm() {
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Contact Info Tab - Now step 9 */}
                     <div
                         className={`container tab-pane ${
-                            currentStep === 9 ? "active" : ""
+                            currentStep === 8 ? "active" : ""
                         }`}
                     >
                         <h3 className="ticont">Contact Information</h3>

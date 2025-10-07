@@ -718,6 +718,7 @@ function Header() {
                                                                 ? "current"
                                                                 : ""
                                                         }`}
+
                                                         // onClick={() => {
                                                         //     setParam(
                                                         //         "serviceType",
@@ -855,10 +856,11 @@ function Header() {
                                     </li>
                                     <li
                                         className={
-                                            isActiveMenu("/coming-soon")
+                                            isActiveMenu("/selling-car")
                                                 ? "current"
                                                 : ""
                                         }
+                                        onClick={toggleMobileMenu}
                                         // onClick={() => {
                                         //     toggleMobileMenu();
                                         //     setParam("serviceType", "scrap");

@@ -170,7 +170,7 @@ const ScrapCarLandingPage = () => {
         }
 
         .form-box {
-          background: #d50000;
+          background: #1d3c66;
           color: #fff;
           border-radius: 12px;
           padding: 30px;
@@ -178,6 +178,7 @@ const ScrapCarLandingPage = () => {
         }
 
         .form-box h3 {
+        color: #fff;
           font-weight: 700;
           margin-bottom: 25px;
           text-transform: uppercase;
@@ -287,7 +288,7 @@ const ScrapCarLandingPage = () => {
         }
 
         .process-box h5 {
-          color: #d50000;
+          color: #000;
           margin-bottom: 15px;
         }
 
@@ -318,7 +319,7 @@ const ScrapCarLandingPage = () => {
         }
 
         .feature-box h5 {
-          color: #d50000;
+          color: #000;
           margin-bottom: 15px;
         }
 
@@ -467,16 +468,43 @@ const ScrapCarLandingPage = () => {
                                     >
                                         <option value="">Select City</option>
                                         <option value="Delhi">Delhi</option>
-                                        <option value="Mumbai">Mumbai</option>
-                                        <option value="Bangalore">
-                                            Bangalore
+                                        <option value="Faridabad">
+                                            Faridabad
                                         </option>
-                                        <option value="Hyderabad">
-                                            Hyderabad
+                                        <option value="Gurugram">
+                                            Gurugram
                                         </option>
-                                        <option value="Chennai">Chennai</option>
-                                        <option value="Kolkata">Kolkata</option>
-                                        <option value="Pune">Pune</option>
+                                        <option value="Ghaziabad">
+                                            Ghaziabad
+                                        </option>
+                                        <option value="Greater Noida">
+                                            Greater Noida
+                                        </option>
+                                        <option value="Karnal">Karnal</option>
+                                        <option value="Zind">Zind</option>
+                                        <option value="Panipat">Panipat</option>
+                                        <option value="Sonipat">Sonipat</option>
+                                        <option value="Rohtak">Rohtak</option>
+                                        <option value="Bhiwani">Bhiwani</option>
+                                        <option value="Charkhi Dadri">
+                                            Charkhi Dadri
+                                        </option>
+                                        <option value="Jhajjar">Jhajjar</option>
+                                        <option value="Mahendragarh">
+                                            Mahendragarh
+                                        </option>
+                                        <option value="Rewari">Rewari</option>
+                                        <option value="Nuh">Nuh</option>
+                                        <option value="Palwal">Palwal</option>
+                                        <option value="Shamli">Shamli</option>
+                                        <option value="Muzaffarnagar">
+                                            Muzaffarnagar
+                                        </option>
+                                        <option value="Meerut">Meerut</option>
+                                        <option value="Hapur">Hapur</option>
+                                        <option value="Bulandshahr">
+                                            Bulandshahr
+                                        </option>
                                     </select>
 
                                     <button
