@@ -355,14 +355,29 @@ const ScrapCarLandingPage = () => {
                 <div className="container">
                     <div className="row align-items-center">
                         {/* Left Text */}
-                        <div className="col-lg-6 hero-left">
+                        <div
+                            className="col-lg-6 hero-left"
+                            style={{
+                                borderRadius: "12px",
+                                padding: "30px",
+                                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+                            }}
+                        >
+                            <img
+                                // src="img/s1.jpg"
+                                src="assets/images/scrap/s1.jpg"
+                                style={{ maxWidth: "100%" }}
+                                alt="Scrap Car"
+                            />
                             <h1>
                                 Turn Your Scrap Car into
-                                <br /> Instant Cash!
+                                <br />
+                                Instant Cash!
                             </h1>
                             <p>
                                 Scrap Your Car Right Way with GadiDikhao.
-                                <br /> For a cleaner, greener tomorrow
+                                <br />
+                                For a cleaner, greener tomorrow
                             </p>
                         </div>
 
@@ -580,6 +595,12 @@ const ScrapCarLandingPage = () => {
                         {/* Step 1 */}
                         <div className="col-md-6 col-lg-3">
                             <div className="process-box">
+                                <img
+                                    // src="img/car1.png"
+                                    src={`assets/images/scrap/car1.png`}
+                                    style={{ maxWidth: "100%" }}
+                                    alt="Car Verification"
+                                />
                                 <h5 className="fw-semibold">
                                     Car Verification
                                 </h5>
@@ -594,6 +615,12 @@ const ScrapCarLandingPage = () => {
                         {/* Step 2 */}
                         <div className="col-md-6 col-lg-3">
                             <div className="process-box">
+                                <img
+                                    // src="img/car2.png"
+                                    src="assets/images/scrap/car2.png"
+                                    style={{ maxWidth: "100%" }}
+                                    alt="Self-Inspection"
+                                />
                                 <h5 className="fw-semibold">Self-Inspection</h5>
                                 <p className="mb-0">
                                     Help us assess the condition of your car to
@@ -605,6 +632,12 @@ const ScrapCarLandingPage = () => {
                         {/* Step 3 */}
                         <div className="col-md-6 col-lg-3">
                             <div className="process-box">
+                                <img
+                                    // src="img/car3.png"
+                                    src="assets/images/scrap/car3.png"
+                                    style={{ maxWidth: "100%" }}
+                                    alt="Pick Up"
+                                />
                                 <h5 className="fw-semibold">Pick Up</h5>
                                 <p className="mb-0">
                                     A certified scrap vendor will pick up your
@@ -617,6 +650,12 @@ const ScrapCarLandingPage = () => {
                         {/* Step 4 */}
                         <div className="col-md-6 col-lg-3">
                             <div className="process-box">
+                                <img
+                                    // src="img/car4.jpg"
+                                    src="assets/images/scrap/car4.jpg"
+                                    style={{ maxWidth: "100%" }}
+                                    alt="Payment"
+                                />
                                 <h5 className="fw-semibold">Payment</h5>
                                 <p className="mb-0">
                                     Receive a secure, instant payment directly
